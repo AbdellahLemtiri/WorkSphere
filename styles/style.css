@@ -24,13 +24,13 @@
 }
 
 
-button {
+/* button {
     background:var(--primary);
     color: #fff;
 }
 button:hover {
     background:var(--primary-plus);
-}   
+}    */
 .btn-pr{
   background: var(--primary);
   color: var(--btn-text);
@@ -46,8 +46,14 @@ button:hover {
 .bg-light2{
     border:0.1px solid #e0e0e0;
     background-color: #f6f8f9;
+    
 }
 .btn-pr:active{
   background: var(--primary);
   transform: scale(0.93);
+}
+.btn-tow{
+    background-color: white ;
+    border: 2px solid var(--primary);
+    color: #171717;
 }
