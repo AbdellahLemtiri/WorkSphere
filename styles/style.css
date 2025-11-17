@@ -1,0 +1,72 @@
+
+@import url(https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;800;900&display=swap);
+:root {
+    --primary-color: #131313;
+    --secondary-color: #FFC247;
+  
+    --text-color-success: #34C759;
+    --background-color-light: #EDEDF1;
+    --background-color-dark: #F6F6F3;
+    --background-color-white: #ffffff;
+    --button-background-orange: #FF8D28;
+    --button-background-orange-disabled: #ff8c2882;
+    --border-color-orange: 1px solid #FFC247;
+    --border-color-grey: 1px solid #CCCCCC;
+ 
+    --border-color-error: 1px solid red;
+    --border-color-success: 1px solid #34C759;
+    --border-radius: 16px;
+}
+
+.my-font{
+     font-family:Arial, Helvetica, sans-serif;
+     
+}
+.background-blue {
+    background-color: var(--background-color-blue);
+}
+
+
+#sidebar{
+    border-right: 1px solid rgb(92, 195, 255);
+    width: 280px; 
+    min-height: 100vh
+}
+.non_ass{
+    background-color:var(--bg-color-1);
+    color:var(--text-color-1);
+}
+
+
+
+:root{
+  --btn-bg: #4f6cf0;
+  --btn-bg-hover: #3f57c0;
+  --btn-bg-active: #334799;
+  --btn-text: #fff;
+  --bg-color-1 : rgb(222, 235, 255); 
+  --text-color-1:#1920f3;
+}
+
+.btn-pr{
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-pr:hover{
+  background: var(--btn-bg-hover);
+}
+.bg-light2{
+    border:0.1px solid #e0e0e0;
+    background-color: #f6f8f9;
+}
+.btn-pr:active{
+  background: var(--btn-bg-active);
+  transform: scale(0.93);
+}
