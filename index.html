@@ -14,7 +14,7 @@
 <body>
     <div class="d-flex">
         <aside class="d-flex ">
-            <div id="sidebar" class="   p-4">
+            <div id="sidebar" class="p-4">
                 <div class="bg-light2 p-2 rounded-3">
                     <div class="d-flex  justify-content-center">
                         <button id="btnajout" class="btn-pr text-light mb-2 rounded-4 gap-3 d-flex justify-content-center"
@@ -30,67 +30,71 @@
             </div>
         </aside>
       
-        <section id="formulaire" class="formulaire m-3 rounded-4 col-md-5 p-4 ">
-            <form id="">
-                <div class="row mb-2">
-                    <div class="d-flex justify-content-between mb-2 ">
-                        <h5 class="modal-title">Nouvel employé</h5>
-                        <button type="button" id="close_btn" class="btn-close "></button>
-
-                    </div>
-                    <hr>
-                    <div class="col-md-6">
-                        <label class="form-label">Nom</label>
-                        <input type="text" id="nom" class="form-control" name="name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Rôle</label>
-                        <select class="form-select" id="role" name="role" required>
-                            <option disabled selected hidden>Choisir</option>
-                            <option>Manager</option>
-                            <option>Réceptionniste</option>
-                            <option>Technicien IT</option>
-                            <option>Agent de sécurité</option>
-                            <option>Nettoyage</option>
-                            <option>Autre</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mb-2">
-                    <div class=" col-md-6 mb-2">
-                        <label class="form-label">Téléphone</label>
-                        <input type="tel" id="phone" class="form-control" name="phone" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Email</label>
-                        <input id="mail" type="email" class="form-control" name="email" required>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-md-12">
-                        <label class="form-label">Photo (URL)</label>
-                        <input type="url" id="urlimg" class="form-control" name="photo"
-                            placeholder="lien de vetre photo">
-                    </div>
-                    <hr>
-                    <h6>Expériences professionnelles</h6>
-                    <div id="experiences"></div>
-                    <div class="d-flex">
-                        <button type="button" class="btn-tow mb-2 rounded-2 gap-3 d-flex justify-content-center mb-2"
-                            id="ajout_exeprience">
-                            Ajouter expérience <i class="bi bi-plus-circle"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            <div class=" pppp d-flex gap-4  mt-5 pt-5 justify-content-end   align-items-end ">
-                <button type="button" class="   btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" class="    btn btn-primary" id="saveWorkerBtn">Sauvegarder</button>
+       
+ <section id="formulaire" class="formulaire p-4 m-4 bg-light rounded-4 d-none  col-md-6">
+    <form id="" class="form">
+        <div class="row mb-2">
+            <div class="d-flex justify-content-between mb-2 ">
+                <h5 class="">Nouvel employé</h5>
+                <button type="button" id="close_btn" class="btn-close "></button>
             </div>
-        </section>
+            <hr>
+            <div class="col-md-6">
+                <label class="form-label">Nom</label>
+                <input type="text" id="nom" class="form-control" name="name" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Rôle</label>
+                <select class="form-select" id="role" name="role" required>
+                    <option disabled selected hidden>Choisir</option>
+                    <option>Manager</option>
+                    <option>Réceptionniste</option>
+                    <option>Technicien IT</option>
+                    <option>Agent de sécurité</option>
+                    <option>Nettoyage</option>
+                    <option>Autre</option>
+                </select>
+            </div>
+        </div>
 
+        <div class="row mb-2">
+            <div class=" col-md-6 mb-2">
+                <label class="form-label">Téléphone</label>
+                <input type="tel" id="phone" class="form-control" name="phone" required>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input id="mail" type="email" class="form-control" name="email" required>
+            </div>
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-md-12 mb-3">
+                <label class="form-label">Photo (URL)</label>
+                <input type="url" id="urlimg" class="form-control" name="photo" placeholder="lien de vetre photo">
+            </div>
+            <hr>
+            <h6>Expériences professionnelles</h6>
+
+            <div class="d-flex">
+                <button type="button" class="btn-tow mb-2 rounded-2 gap-3 d-flex justify-content-center mb-2"
+                    id="ajout_exeprience">
+                    Ajouter expérience <i class="bi bi-plus-circle"></i>
+                </button>
+            </div>
+
+            <div id="experiences"></div>
+        </div>
+
+        <div class="pppp d-flex gap-4 justify-content-end ">
+            <button id="annuler_btn" type="button" class="btn btn-secondary">Annuler</button>
+            <button  id="sauvegarder" type="button" class=" text-light btn-pr" >Sauvegarder</button>
+        </div>
+
+    </form>
+</section>
     </div>
+
 
 
     <script src="/script/script.js"></script>

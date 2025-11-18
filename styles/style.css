@@ -1,13 +1,16 @@
 :root {
-    --primary: #e7bb65;        
-    --primary-plus: #c89f55;  
-    --tow: #ffdf9a42;
-    --tree: #ffd5a4;
-    --gray: #dcdcdc;
-    --dark: #222222;
-    
+    --primary: #f0c674;        /* ذهبي نقي وواضح */
+    --primary-plus: #d9a957;   /* درجة أدكن ولكن ماشي مخنوقة */
+    --tow: #fff8ed;            /* بيج فاتح مريح */
+    --tree: #ffd8b0;           /* خوخي طبيعي */
+    --gray: #e6e6e6;           /* رمادي نقي وناعم */
+    --dark: #1f1f1f;           /* غامق أنظف من #222 (أقل ضباب) */
 }
 
+
+body{
+    width: 100%;
+}
 .my-font{
      font-family:Arial, Helvetica, sans-serif;
      
@@ -67,6 +70,20 @@ button:hover {
      transform: scale(0.94);
 }
 .formulaire{
-    background-color: var(--tow);
+    
     box-shadow: 0px 5px 10px var(--tree);
+    
 }
+.formulaire {
+    max-height: 80vh;        
+    overflow-y: auto;        
+}
+
+/* .form {
+    overflow-y: visible ;
+} */
+
+#experiences {
+    margin-bottom: 100px; 
+}
+
