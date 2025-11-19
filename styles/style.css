@@ -1,27 +1,28 @@
 :root {
-    --primary: #f0c674;        /* ذهبي نقي وواضح */
-    --primary-plus: #d9a957;   /* درجة أدكن ولكن ماشي مخنوقة */
-    --tow: #fff8ed;            /* بيج فاتح مريح */
-    --tree: #ffd8b0;           /* خوخي طبيعي */
-    --gray: #e6e6e6;           /* رمادي نقي وناعم */
-    --dark: #1f1f1f;           /* غامق أنظف من #222 (أقل ضباب) */
+    --primary: #f0c674;
+    --primary-plus: #d9a957;
+    --tow: #fff8ed;
+    --tree: #ffd8b0;
+    --gray: #e6e6e6;
+    --dark: #1f1f1f;
 }
 
 
-body{
+body {
     width: 100%;
 }
-.my-font{
-     font-family:Arial, Helvetica, sans-serif;
-     
+
+.my-font {
+    font-family: Arial, Helvetica, sans-serif;
+
 }
+
 .background-blue {
     background-color: var(--background-color-blue);
 }
 
-#sidebar{
+#sidebar {
     border-right: 1px solid var(--primary-plus);
-    width: 280px; 
     min-height: 100vh;
     background-color: var(--tow);
 }
@@ -34,56 +35,96 @@ body{
 button:hover {
     background:var(--primary-plus);
 }    */
-.btn-pr{
-  background: var(--primary);
-  color: var(--btn-text);
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s ease ;
+.btn-pr {
+    background: var(--primary);
+    color: var(--btn-text);
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
 }
 
 
-.bg-light2{
-    border:  0.1px solid #e0e0e0;
+.bg-light2 {
+    border: 0.1px solid #e0e0e0;
     background-color: #f6f8f9;
-    
+
 }
-.btn-pr:active{
-  background: var(--primary);
-  transform: scale(0.93);
+
+.btn-pr:active {
+    background: var(--primary);
+    transform: scale(0.93);
 }
-.btn-tow{
-    background-color: white ;
+
+.btn-tow {
+    background-color: white;
     border: 1px solid var(--primary);
     color: #171717;
     transition: 0.4s ease;
 }
-.btn-tow:hover{
+
+.btn-tow:hover {
     background-color: var(--tow);
     transform: scale(0.96);
 }
-.btn-tow:active{
+
+.btn-tow:active {
     background-color: var(--tree);
-     transform: scale(0.94);
+    transform: scale(0.94);
 }
-.formulaire{
-    
-    box-shadow: 0px 5px 10px var(--tree);
-    
-}
+
 .formulaire {
-    max-height: 80vh;        
-    overflow-y: auto;        
+
+    box-shadow: 0px 5px 10px var(--tree);
+
 }
 
-/* .form {
-    overflow-y: visible ;
-} */
-
-#experiences {
-    margin-bottom: 100px; 
+.formulaire {
+    max-height: 97vh;
+    margin-left: 12px;
 }
 
+.body_form {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+}
+
+.formulaire input,
+.formulaire select {
+    height: 45px;
+    border-radius: 10px;
+    margin: 4px;
+}
+
+hr {
+    opacity: 0.1;
+}
+
+
+
+#formulaire .form-control,
+#formulaire .form-select {
+    height: 34px !important;
+    font-size: 14px;
+    padding: 4px 10px !important;
+    border-radius: 6px;
+}
+
+#formulaire .body_form {
+    max-height: 83vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+#formulaire button {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+#formulaire h6 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
