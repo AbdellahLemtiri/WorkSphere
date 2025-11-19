@@ -18,17 +18,17 @@ const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
 const infodate = document.getElementById('infodate');
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
-let id_emp;
-if (les_employees.length <1 ){
-id_emp=1;
-}
-else{
-    id_emp= les_employees.length;
-}
 function sauvegarde_local() {
-    localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
+    localStorage.setItem('les_emplyoees', JSON.stringify(les_employees));
+}
+let max_id = 0;
+for (let emp of les_employees) {
+    if (emp.id > max_id) {
+        max_id = emp.id;
+    }
 }
 
+let id_emp = max_id + 1;
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
     const end = new Date(datefin.value);
@@ -152,7 +152,7 @@ const les_sale = [
 
         console.log("64" + erreur);
         const employe = {
-            id: nextId++,
+            id: id_emp,
             nom: nom.value,
             role: role.value,
             email: mail.value,
@@ -161,6 +161,7 @@ const les_sale = [
             experiences: experiences,
             assignedTo: null
         };
+        id_emp++;
 
 
 document.querySelectorAll('.experience-item').forEach(div => {
