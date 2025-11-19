@@ -41,13 +41,11 @@ datestart.addEventListener('change', () => {
 });
 
 
-// في الأعلى ديال الكود (مع المتغيرات)
-let toutes_les_experiences = []; // هادي المصفوفة اللي غادي نحطو فيها كل الخبرات
 
 ajout_exeprience.addEventListener('click', () => {
     const exp = document.createElement('div');
-    exp.className = "row mb-2 experience-item"; // نزيد كلاس باش نلقاه بسهولة بعدين
-  
+    exp.className = "row mb-2 experience-item";
+
 
     exp.innerHTML = `
         <div class="col-6">
@@ -66,25 +64,10 @@ ajout_exeprience.addEventListener('click', () => {
             <label class="form-label">Date fin</label>
             <input type="date" class="form-control" name="dateEnd">
         </div>
-        <div class="col-12 mt-2">
-            <button type="button" class="btn btn-danger btn-sm btn-supprimer-exp">
-                Supprimer cette expérience
-            </button>
-        </div>
+       
     `;
 
     experiences.appendChild(exp);
-
-    
-    toutes_les_experiences.push({
-        poste: '',
-        entreprise: '',
-        dateStart: '',
-        dateEnd: ''
-    });
-
-    
-    
 });
 btnajout.addEventListener('click', () => {
     formulaire.classList.remove('d-none');
@@ -116,7 +99,7 @@ sauvegarder.addEventListener('click', () => {
     const regnom = /^[A-Za-z ]{3,30}$/;
     const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-console.log(expr);
+    
 
     let erreur = false;
     if (!regphone.test(phone.value)) {
@@ -152,44 +135,59 @@ console.log(expr);
         }
     }
 
-  if (!erreur) {
-    const employe = {
-        id: id_emp++,
-        nom: nom.value.trim(),
-        role: role.value,
-        email: mail.value,
-        phone: phone.value,
-        photo: urlimg.value || 'https://via.placeholder.com/80?text=Photo',
-        experiences: [],
-        assignedTo: false
-    };
+    if (!erreur) {
+        const employe = {
+            id: id_emp++,
+            nom: nom.value.trim(),
+            role: role.value,
+            email: mail.value,
+            phone: phone.value,
+            photo: urlimg.value || '',
+            experiences: [],
+            assignedTo: false
+        };
 
-    const tab_experiences = [];
-console.log('yyyyy'+Poste);
 
-   
-    employe.experiences = tab_experiences;
+      let toutes_les_experiences = [];
 
-    les_employees.push(employe);
-    sauvegarde_local();                  
-    formulaire.classList.add('d-none');
-    experiences.innerHTML = '';
-    nom.value = phone.value = mail.value = urlimg.value = datestart.value = datefin.value = '';
-    role.value = "Choisir";
-}
+document.querySelectorAll('#experiences .experience-item').forEach(une_exp => {
 
-console.log(les_employees);
-// console.log(tab_experiences);
-const les_sale = [
+    const poste = une_exp.querySelector('input[name="expPoste"]')?.value.trim() || '';
+    const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value.trim() || '';
+    const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || '';
+    const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || '';
 
-    { id: "salle_manger", nome: "Salle a manger", employees: [] , capacity: 4,},
-    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
-    { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
-    { id: "bureaux", nome: "Bureaux", employees: [],capacity: 3,  },
-    { id: "salle_reunion", nome: "Salle de reunion", employees: [] , capacity: 8,},
-    { id: "stockage", nome: "Stockage", employees: [],capacity: 2, },
+    if (poste || entreprise || date_start || date_fin) {
+        toutes_les_experiences.push({
+            poste: poste,
+            entreprise: entreprise,
+            datestart: date_start,
+            datefin: date_fin
+        });
+    }
 
-];
+});
 
+    console.log(les_employees);
+        toutes_les_experiences.push(une_experiences)
+        employe.experiences=toutes_les_experiences;
+        les_employees.push(employe);
+        sauvegarde_local();
+        formulaire.classList.add('d-none');
+        nom.value = phone.value = mail.value = urlimg.value = datestart.value = datefin.value = '';
+        role.value = "Choisir";
+    }
+
+    // console.log(tab_experiences);
+    const les_sale = [
+
+        { id: "salle_manger", nome: "Salle a manger", employees: [], capacity: 4, },
+        { id: "salon", nome: "Salon", capacity: 6, employees: [] },
+        { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
+        { id: "bureaux", nome: "Bureaux", employees: [], capacity: 3, },
+        { id: "salle_reunion", nome: "Salle de reunion", employees: [], capacity: 8, },
+        { id: "stockage", nome: "Stockage", employees: [], capacity: 2, },
+
+    ];
 
 });
