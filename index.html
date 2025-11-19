@@ -12,27 +12,42 @@
 </head>
 
 <body>
- <div class="row w-100 m-0">
-    <aside class=" col-3  ">
-      <div id="sidebar" class="p-4">
+
+<div class="container-fluid p-0">
+  <div class="row g-0 min-vh-100">   
+
+    <aside class="col-lg-3 bg-light2">  
+      <div id="sidebar" class="p-3 h-100">
+     
         <div class="bg-light2 p-2 rounded-3">
-          <div class="d-flex  justify-content-center">
-            <button id="btnajout" class="btn-pr text-light mb-2 rounded-4 gap-3 d-flex justify-content-center"
-               data-bs-target="#addModal">
-              <i class="bi bi-plus-circle"></i>Ajouter employe
+          <div class="d-flex justify-content-center">
+            <button id="btnajout" class="btn-pr text-light mb-2 rounded-4 gap-3 d-flex justify-content-center align-items-center">
+              <i class="bi bi-plus-circle"></i> Ajouter employe
             </button>
           </div>
-          <div class="non_ass pt-2 d-flex rounded-3   justify-content-center">
-            <h4 class="  my-font">Non assignes</h4>
+          <div class="non_ass pt-2 d-flex rounded-3 justify-content-center">
+            <h4 class="my-font">Non assignes</h4>
           </div>
         </div>
         <ul id="unassignedList" class="list-group mb-3"></ul>
       </div>
     </aside>
 
+    <div class="col-lg-9 p-1">   
+      <div class="plan">
+        <div class="room salle_manger">   <img src="ROM1.jpg" alt="rom manager"></div>
+        <div class="room salon">          <img src="ROM2.jpg" alt="rom salon"></div>
+        <div class="room open_space">     <img src="ROM3.jpg" alt="open space"></div>
+        <div class="room bureaux">        <img src="ROM4.jpg" alt="bureaux"></div>
+        <div class="room salle_reunion">  <img src="ROM6.jpg" alt="salle réunion"></div>
+        <div class="room stockage">       <img src="ROM5.jpg" alt="stockage"></div>
+      </div>
+    </div>
 
-  <section id="formulaire"
-  class="formulaire position-fixed top-0  mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3"
+  </div>
+</div>
+ <section id="formulaire"
+  class="formulaire position-fixed top-0 p-2 mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3"
   >
   <form class="w-100 ">
 
@@ -95,13 +110,13 @@
       </div>
 
       <div class="col-6">
-        <label class="form-label">Date start</label>
-        <input type="date" class="form-control" name="dateStart">
+        <label  class="form-label">Date start</label>
+        <input id="datestart" type="date" class="form-control" name="dateStart">
       </div>
 
       <div class="col-6">
         <label class="form-label">Date fin</label>
-        <input type="date" class="form-control" name="dateEnd">
+        <input id="datefin" type="date" class="form-control" name="dateEnd">
       </div>
       <div id="experiences"></div>
     </div>
@@ -119,9 +134,6 @@
 </div>
   </form>
 </section>
-
-  </div>
-
 
 
   <script src="/script/script.js"></script>

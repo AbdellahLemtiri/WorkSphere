@@ -5,6 +5,27 @@ const close_btn = document.getElementById('close_btn');
 const ajout_exeprience = document.getElementById('ajout_exeprience');
 const experiences = document.getElementById('experiences');
 const sauvegarder = document.getElementById('sauvegarder');
+const datestart = document.getElementById('datestart')
+const datefin = document.getElementById('datefin')
+const nom = document.getElementById('nom').value
+const role = document.getElementById('role').value;
+const phone = document.getElementById('phone').value;
+const mail = document.getElementById('mail').value
+const urlimg = document.getElementById('urlimg').value;
+const inforole = document.getElementById('inforole')
+const infotele = document.getElementById('infotele')
+const infomail = document.getElementById('infomail');
+const infonom = document.getElementById('infonom');
+datestart.addEventListener('change', () => {
+    const start = new Date(datestart.value);
+    const end = new Date(datefin.value);
+    const diff = end - start;
+    console.log(diff);
+    const jours = diff / (1000 * 60 * 60 * 24);
+    console.log(jours);
+
+
+});
 
 
 
@@ -17,14 +38,14 @@ const sauvegarder = document.getElementById('sauvegarder');
 //     Autre:            { everywhere: true, forbidden: ['Réception','Salle des serveurs','Salle de sécurité'] }
 // };
 
-// const ZONES = [
-//     { id:'conf',   name:'Salle de conférence',   mandatory:false, max:10 },
-//     { id:'rec',    name:'Reception',            mandatory:true,  max:2 },
-//     { id:'serv',   name:'Salle des serveurs',   mandatory:true,  max:3 },
-//     { id:'secu',   name:'Salle de sécurite',    mandatory:true,  max:2 },
-//     { id:'pers',   name:'Salle du personnel',   mandatory:false, max:8 },
-//     { id:'arch',   name:"Salle d'archives",    mandatory:true,  max:4 }
-// ];
+const les_sale = [
+  { id: "salle_manger", name: "Salle à manger", capacity: 4, employees: [] },
+  { id: "salon", name: "Salon", capacity: 6, employees: [] },
+  { id: "open_space", name: "Open Space", capacity: 10, employees: [] },
+  { id: "bureaux", name: "Bureaux", capacity: 3, employees: [] },
+  { id: "salle_reunion", name: "Salle de réunion", capacity: 8, employees: [] },
+  { id: "stockage", name: "Stockage", capacity: 2, employees: [] },
+];
 
 // let workers = [];          // all workers (assigned + unassigned)
 // let assignments = {};      // zoneId → array of worker ids
@@ -65,6 +86,12 @@ btnajout.addEventListener('click', () => {
     infomail.textContent = "";
     infonom.textContent = "";
     experiences.innerHTML = "";
+    nom.value = "";
+    datefin.value = ""
+    datestart.value = ""
+    mail.value="";
+    phone.value="";
+    role.value="Choisir";
 })
 annuler_btn.addEventListener('click', () => {
     formulaire.classList.add('d-none');
@@ -73,15 +100,6 @@ close_btn.addEventListener('click', () => {
     formulaire.classList.add('d-none');
 })
 sauvegarder.addEventListener('click', () => {
-    const nom = document.getElementById('nom').value
-    const role = document.getElementById('role').value;
-    const phone = document.getElementById('phone').value;
-    const mail = document.getElementById('mail').value
-    const urlimg = document.getElementById('urlimg').value;
-    const inforole = document.getElementById('inforole')
-    const infotele = document.getElementById('infotele')
-    const infomail = document.getElementById('infomail');
-    const infonom = document.getElementById('infonom');
     inforole.textContent = "";
     infotele.textContent = "";
     infomail.textContent = "";
@@ -106,10 +124,20 @@ sauvegarder.addEventListener('click', () => {
     console.log("1" + erreur);
 
     if (!erreur) {
+
+
+
         console.log("64" + erreur);
         let persones = {
-          
+            nom: nom,
+            role: role,
+            telephone: tele,
+            email: mail,
+            phone: urlimg,
+            experiences: []
+
         }
+
     }
 
 
