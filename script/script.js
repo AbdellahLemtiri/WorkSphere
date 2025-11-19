@@ -7,15 +7,28 @@ const experiences = document.getElementById('experiences');
 const sauvegarder = document.getElementById('sauvegarder');
 const datestart = document.getElementById('datestart')
 const datefin = document.getElementById('datefin')
-const nom = document.getElementById('nom').value
-const role = document.getElementById('role').value;
-const phone = document.getElementById('phone').value;
-const mail = document.getElementById('mail').value
-const urlimg = document.getElementById('urlimg').value;
+const nom = document.getElementById('nom');
+const role = document.getElementById('role');
+const phone = document.getElementById('phone');
+const mail = document.getElementById('mail');
+const urlimg = document.getElementById('urlimg');
 const inforole = document.getElementById('inforole')
 const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
+const infodate = document.getElementById('infodate');
+let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
+let id_emp;
+if (les_employees.length <1 ){
+id_emp=1;
+}
+else{
+    id_emp= les_employees.length;
+}
+function sauvegarde_local() {
+    localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
+}
+
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
     const end = new Date(datefin.value);
@@ -24,31 +37,21 @@ datestart.addEventListener('change', () => {
     const jours = diff / (1000 * 60 * 60 * 24);
     console.log(jours);
 
-
 });
 
 
 
-// const ROLES = {
-//     Manager:          { everywhere: true },
-//     Receptionniste:   { zones: ['Réception'] },
-//     Technicien IT:  { zones: ['Salle des serveurs'] },
-//     Agent de securite: { zones: ['Salle de sécurité'] },
-//     Nettoyage:        { everywhere: true, forbidden: ['Salle d\'archives'] },
-//     Autre:            { everywhere: true, forbidden: ['Réception','Salle des serveurs','Salle de sécurité'] }
-// };
-
 const les_sale = [
-  { id: "salle_manger", name: "Salle à manger", capacity: 4, employees: [] },
-  { id: "salon", name: "Salon", capacity: 6, employees: [] },
-  { id: "open_space", name: "Open Space", capacity: 10, employees: [] },
-  { id: "bureaux", name: "Bureaux", capacity: 3, employees: [] },
-  { id: "salle_reunion", name: "Salle de réunion", capacity: 8, employees: [] },
-  { id: "stockage", name: "Stockage", capacity: 2, employees: [] },
+
+    { id: "salle_manger", nome: "Salle a manger", capacity: 4, employees: [] },
+    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
+    { id: "open_space", nome: "Open Space", capacity: 10, employees: [] },
+    { id: "bureaux", nome: "Bureaux", capacity: 3, employees: [] },
+    { id: "salle_reunion", nome: "Salle de reunion", capacity: 8, employees: [] },
+    { id: "stockage", nome: "Stockage", capacity: 2, employees: [] },
+
 ];
 
-// let workers = [];          // all workers (assigned + unassigned)
-// let assignments = {};      // zoneId → array of worker ids
 
 ajout_exeprience.addEventListener('click', () => {
     const exp = document.createElement('div');
@@ -89,9 +92,9 @@ btnajout.addEventListener('click', () => {
     nom.value = "";
     datefin.value = ""
     datestart.value = ""
-    mail.value="";
-    phone.value="";
-    role.value="Choisir";
+    mail.value = "";
+    phone.value = "";
+    role.value = "Choisir";
 })
 annuler_btn.addEventListener('click', () => {
     formulaire.classList.add('d-none');
@@ -105,8 +108,9 @@ sauvegarder.addEventListener('click', () => {
     infomail.textContent = "";
     infonom.textContent = "";
     const regphone = /^(?:\+212|0)([5-7]\d{8})$/;
-    // const regmail = /^[/
-    const regnom = /^([a-z A-Z]){3-30}$/;
+    const regnom = /^[A-Za-z ]{3,30}$/;
+    const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     console.log(role);
     console.log(regphone.test(phone))
     let erreur = false;
@@ -114,7 +118,12 @@ sauvegarder.addEventListener('click', () => {
         erreur = true;
         infotele.textContent = "N° de téléphone invalide !";
     }
-    if (role == "Choisir") {
+    if (!regmail.test(mail.value)) {
+        infomail.textContent = "Email est  invalide  !";
+        erreur = true;
+    }
+
+    if (role.value === "Choisir") {
         inforole.textContent = "Veuillez choisir le role";
         erreur = true;
     }
@@ -122,24 +131,61 @@ sauvegarder.addEventListener('click', () => {
         infonom.textContent = "le nom est invalide ! ";
     }
     console.log("1" + erreur);
+    if (!datestart.value || !datefin.value) {
+        erreur = true;
+        infodate.textContent = "veuillez entre des dates valide !";
+
+
+    }
+    else {
+        const start = new Date(datestart.value);
+        const end = new Date(datefin.value);
+
+        if (end <= start) {
+            erreur = true;
+            infodate.textContent = "veuillez entre des dates valide !";
+        }
+    }
 
     if (!erreur) {
 
 
 
         console.log("64" + erreur);
-        let persones = {
-            nom: nom,
-            role: role,
-            telephone: tele,
-            email: mail,
-            phone: urlimg,
-            experiences: []
+        const employe = {
+            id: nextId++,
+            nom: nom.value,
+            role: role.value,
+            email: mail.value,
+            phone: phone.value,
+            photo: urlimg.value,
+            experiences: experiences,
+            assignedTo: null
+        };
 
-        }
 
+document.querySelectorAll('.experience-item').forEach(div => {
+    const poste = div.querySelector('.expPoste').value
+    const entreprise = div.querySelector('.expEntreprise').value
+    const debut = div.querySelector('.dateStart').value;
+    const fin = div.querySelector('.dateEnd').value;
+    if (poste || entreprise || debut || fin) {
+        experiences.push({
+            poste: poste,
+            entreprise: entreprise,
+            dateStart: debut,
+            dateEnd: fin
+        });
+    }
+});
+
+console.log(experiences);
+
+
+les_employees.push(employe);
+console.log(les_employees);
     }
 
 
 
-})
+});

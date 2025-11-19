@@ -185,6 +185,9 @@ hr {
     display: block;
    
 }
+small{
+    font-size:smaller;
+}
 @media (max-width: 518px) {
     .plan {
         transform: rotate(90deg);
