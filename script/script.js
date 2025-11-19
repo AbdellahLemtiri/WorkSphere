@@ -17,7 +17,17 @@ const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
 const infodate = document.getElementById('infodate');
-
+let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
+let id_emp;
+if (les_employees.length <1 ){
+id_emp=1;
+}
+else{
+    id_emp= les_employees.length;
+}
+function sauvegarde_local() {
+    localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
+}
 
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
@@ -90,7 +100,16 @@ sauvegarder.addEventListener('click', () => {
     const regphone = /^(?:\+212|0)([5-7]\d{8})$/;
     const regnom = /^[A-Za-z ]{3,30}$/;
     const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const les_sale = [
 
+    { id: "salle_manger", nome: "Salle a manger", employees: [] , capacity: 4,},
+    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
+    { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
+    { id: "bureaux", nome: "Bureaux", employees: [],capacity: 3,  },
+    { id: "salle_reunion", nome: "Salle de reunion", employees: [] , capacity: 8,},
+    { id: "stockage", nome: "Stockage", employees: [],capacity: 2, },
+
+];
     console.log(role);
     console.log(regphone.test(phone))
     let erreur = false;
