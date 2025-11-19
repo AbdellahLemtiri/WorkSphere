@@ -17,17 +17,7 @@ const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
 const infodate = document.getElementById('infodate');
-let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
-let id_emp;
-if (les_employees.length <1 ){
-id_emp=1;
-}
-else{
-    id_emp= les_employees.length;
-}
-function sauvegarde_local() {
-    localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
-}
+
 
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
@@ -41,16 +31,6 @@ datestart.addEventListener('change', () => {
 
 
 
-const les_sale = [
-
-    { id: "salle_manger", nome: "Salle a manger", capacity: 4, employees: [] },
-    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
-    { id: "open_space", nome: "Open Space", capacity: 10, employees: [] },
-    { id: "bureaux", nome: "Bureaux", capacity: 3, employees: [] },
-    { id: "salle_reunion", nome: "Salle de reunion", capacity: 8, employees: [] },
-    { id: "stockage", nome: "Stockage", capacity: 2, employees: [] },
-
-];
 
 
 ajout_exeprience.addEventListener('click', () => {
