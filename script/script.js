@@ -19,8 +19,9 @@ const infonom = document.getElementById('infonom');
 const infodate = document.getElementById('infodate');
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
 function sauvegarde_local() {
-    localStorage.setItem('les_emplyoees', JSON.stringify(les_employees));
+    localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
 }
+
 let max_id = 0;
 for (let emp of les_employees) {
     if (emp.id > max_id) {
@@ -40,38 +41,51 @@ datestart.addEventListener('change', () => {
 });
 
 
-
-
+// في الأعلى ديال الكود (مع المتغيرات)
+let toutes_les_experiences = []; // هادي المصفوفة اللي غادي نحطو فيها كل الخبرات
 
 ajout_exeprience.addEventListener('click', () => {
     const exp = document.createElement('div');
-    exp.className = "row mb-2"
+    exp.className = "row mb-2 experience-item"; // نزيد كلاس باش نلقاه بسهولة بعدين
+  
+
     exp.innerHTML = `
-          
-      <div class="col-6">
-        <label class="form-label">Poste</label>
-        <input type="text" class="form-control" name="expPoste">
-      </div>
-
-      <div class="col-6">
-        <label class="form-label">Entreprise</label>
-        <input type="text" class="form-control" name="expEntreprise">
-      </div>
-
-      <div class="col-6">
-        <label class="form-label">Date start</label>
-        <input type="date" class="form-control" name="dateStart">
-      </div>
-
-      <div class="col-6">
-        <label class="form-label">Date fin</label>
-        <input type="date" class="form-control" name="dateEnd">
-      </div>
-
-        `;
+        <div class="col-6">
+            <label class="form-label">Poste</label>
+            <input type="text" class="form-control" name="expPoste">
+        </div>
+        <div class="col-6">
+            <label class="form-label">Entreprise</label>
+            <input type="text" class="form-control" name="expEntreprise">
+        </div>
+        <div class="col-6">
+            <label class="form-label">Date start</label>
+            <input type="date" class="form-control" name="dateStart">
+        </div>
+        <div class="col-6">
+            <label class="form-label">Date fin</label>
+            <input type="date" class="form-control" name="dateEnd">
+        </div>
+        <div class="col-12 mt-2">
+            <button type="button" class="btn btn-danger btn-sm btn-supprimer-exp">
+                Supprimer cette expérience
+            </button>
+        </div>
+    `;
 
     experiences.appendChild(exp);
-})
+
+    
+    toutes_les_experiences.push({
+        poste: '',
+        entreprise: '',
+        dateStart: '',
+        dateEnd: ''
+    });
+
+    
+    
+});
 btnajout.addEventListener('click', () => {
     formulaire.classList.remove('d-none');
     inforole.textContent = "";
@@ -86,6 +100,7 @@ btnajout.addEventListener('click', () => {
     phone.value = "";
     role.value = "Choisir";
 })
+
 annuler_btn.addEventListener('click', () => {
     formulaire.classList.add('d-none');
 })
@@ -97,23 +112,14 @@ sauvegarder.addEventListener('click', () => {
     infotele.textContent = "";
     infomail.textContent = "";
     infonom.textContent = "";
-    const regphone = /^(?:\+212|0)([5-7]\d{8})$/;
+    const regphone = /^(05|06|07)[0-9]{8}$/;
     const regnom = /^[A-Za-z ]{3,30}$/;
     const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const les_sale = [
 
-    { id: "salle_manger", nome: "Salle a manger", employees: [] , capacity: 4,},
-    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
-    { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
-    { id: "bureaux", nome: "Bureaux", employees: [],capacity: 3,  },
-    { id: "salle_reunion", nome: "Salle de reunion", employees: [] , capacity: 8,},
-    { id: "stockage", nome: "Stockage", employees: [],capacity: 2, },
+console.log(expr);
 
-];
-    console.log(role);
-    console.log(regphone.test(phone))
     let erreur = false;
-    if (!regphone.test(phone)) {
+    if (!regphone.test(phone.value)) {
         erreur = true;
         infotele.textContent = "N° de téléphone invalide !";
     }
@@ -126,7 +132,7 @@ const les_sale = [
         inforole.textContent = "Veuillez choisir le role";
         erreur = true;
     }
-    if (!regnom.test(nom)) {
+    if (!regnom.test(nom.value)) {
         infonom.textContent = "le nom est invalide ! ";
     }
     console.log("1" + erreur);
@@ -146,46 +152,44 @@ const les_sale = [
         }
     }
 
-    if (!erreur) {
+  if (!erreur) {
+    const employe = {
+        id: id_emp++,
+        nom: nom.value.trim(),
+        role: role.value,
+        email: mail.value,
+        phone: phone.value,
+        photo: urlimg.value || 'https://via.placeholder.com/80?text=Photo',
+        experiences: [],
+        assignedTo: false
+    };
 
+    const tab_experiences = [];
+console.log('yyyyy'+Poste);
 
+   
+    employe.experiences = tab_experiences;
 
-        console.log("64" + erreur);
-        const employe = {
-            id: id_emp,
-            nom: nom.value,
-            role: role.value,
-            email: mail.value,
-            phone: phone.value,
-            photo: urlimg.value,
-            experiences: experiences,
-            assignedTo: null
-        };
-        id_emp++;
+    les_employees.push(employe);
+    sauvegarde_local();                  
+    formulaire.classList.add('d-none');
+    experiences.innerHTML = '';
+    nom.value = phone.value = mail.value = urlimg.value = datestart.value = datefin.value = '';
+    role.value = "Choisir";
+}
 
-
-document.querySelectorAll('.experience-item').forEach(div => {
-    const poste = div.querySelector('.expPoste').value
-    const entreprise = div.querySelector('.expEntreprise').value
-    const debut = div.querySelector('.dateStart').value;
-    const fin = div.querySelector('.dateEnd').value;
-    if (poste || entreprise || debut || fin) {
-        experiences.push({
-            poste: poste,
-            entreprise: entreprise,
-            dateStart: debut,
-            dateEnd: fin
-        });
-    }
-});
-
-console.log(experiences);
-
-
-les_employees.push(employe);
 console.log(les_employees);
-    }
+// console.log(tab_experiences);
+const les_sale = [
 
+    { id: "salle_manger", nome: "Salle a manger", employees: [] , capacity: 4,},
+    { id: "salon", nome: "Salon", capacity: 6, employees: [] },
+    { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
+    { id: "bureaux", nome: "Bureaux", employees: [],capacity: 3,  },
+    { id: "salle_reunion", nome: "Salle de reunion", employees: [] , capacity: 8,},
+    { id: "stockage", nome: "Stockage", employees: [],capacity: 2, },
+
+];
 
 
 });
