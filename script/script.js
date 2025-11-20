@@ -17,6 +17,13 @@ const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
 const infodate = document.getElementById('infodate');
+const btn_stockage = document.getElementById('btn_stockage')
+const btn_reunion = document.getElementById('btn_reunion');
+const btn_bureaux = document.getElementById('btn_bureaux');
+const btn_sallon = document.getElementById('btn_sallon');
+const btn_manger = document.getElementById('btn_manger');
+const btn_space = document.getElementById('btn_space');
+
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
 function sauvegarde_local() {
     localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
@@ -121,42 +128,42 @@ sauvegarder.addEventListener('click', () => {
     }
     if (!regnom.test(nom.value)) {
         infonom.textContent = "le nom est invalide ! ";
-    }
-    console.log("1" + erreur);
-    if (!datestart.value || !datefin.value) {
         erreur = true;
-        infodate.textContent = "veuillez entre des dates valide !";
-
-
     }
-    else {
-        const start = new Date(datestart.value);
-        const end = new Date(datefin.value);
 
-        if (end <= start) {
-            erreur = true;
-            infodate.textContent = "veuillez entre des dates valide !";
-        }
-    }
+    console.log("1" + erreur);
+    // if (!datestart.value || !datefin.value) {
+    //     erreur = true;
+    //     infodate.textContent = "veuillez entre des dates valide !";
+
+
+    // }
+    // else {
+    //     const start = new Date(datestart.value);
+    //     const end = new Date(datefin.value);
+
+    //     if (end <= start) {
+    //         erreur = true;
+    //         infodate.textContent = "veuillez entre des dates valide !";
+    //     }
+    // }
 
     if (!erreur) {
         const employe = {
             id: id_emp++,
-            nom: nom.value.trim(),
+            nom: nom.value,
             role: role.value,
             email: mail.value,
             phone: phone.value,
-            photo: urlimg.value || '',
+            photo: urlimg.value || 'https://via.placeholder.com/80?text=Photo',
             experiences: [],
-            assignedTo: false
+            assignedTo: null
         };
 
 
-
-        let toutes_les_experiences = [];
+        const toutes_les_experiences = [];
 
         document.querySelectorAll('#experiences .experience-item').forEach(une_exp => {
-
             const poste = une_exp.querySelector('input[name="expPoste"]')?.value.trim() || '';
             const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value.trim() || '';
             const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || '';
@@ -166,33 +173,39 @@ sauvegarder.addEventListener('click', () => {
                 toutes_les_experiences.push({
                     poste: poste,
                     entreprise: entreprise,
-                    datestart: date_start,
-                    datefin: date_fin
+                    dateStart: date_start,
+                    dateEnd: date_fin
                 });
             }
-
         });
 
-        console.log(les_employees);
-        toutes_les_experiences.push(une_experiences)
+
         employe.experiences = toutes_les_experiences;
+
+
         les_employees.push(employe);
         sauvegarde_local();
         formulaire.classList.add('d-none');
-        nom.value = phone.value = mail.value = urlimg.value = datestart.value = datefin.value = '';
-        role.value = "Choisir";
+        experiences.innerHTML = '';
+        rest_formulaire();
     }
 
-    // console.log(tab_experiences);
-    const les_sale = [
+    // const les_sale = [
 
-        { id: "salle_manger", nome: "Salle a manger", employees: [], capacity: 4, },
-        { id: "salon", nome: "Salon", capacity: 6, employees: [] },
-        { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
-        { id: "bureaux", nome: "Bureaux", employees: [], capacity: 3, },
-        { id: "salle_reunion", nome: "Salle de reunion", employees: [], capacity: 8, },
-        { id: "stockage", nome: "Stockage", employees: [], capacity: 2, },
+    //     { id: "salle_manger", nome: "Salle a manger", employees: [], capacity: 4, },
+    //     { id: "salon", nome: "Salon", capacity: 6, employees: [] },
+    //     { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
+    //     { id: "bureaux", nome: "Bureaux", employees: [], capacity: 3, },
+    //     { id: "salle_reunion", nome: "Salle de reunion", employees: [], capacity: 8, },
+    //     { id: "stockage", nome: "Stockage", employees: [], capacity: 2, },
 
-    ];
+    // ];
 
+
+
+
+
+});
+btn_bureaux.addEventListener('click', () => {
+    console.log("bouton br");
 });
