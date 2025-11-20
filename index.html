@@ -30,7 +30,7 @@
               <h4 class="my-font">Non assignes</h4>
             </div>
           </div>
-          <ul id="unassignedList" class="list-group mb-3"></ul>
+          <ul id="list_employee_non_assignes" class="list-group mb-3"></ul>
         </div>
       </aside>
 
@@ -52,97 +52,104 @@
       </div>
 
     </div>
-  </div>
-  <section id="formulaire"
-    class="formulaire position-fixed top-0 p-2 mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3">
-    <form class="w-100 ">
 
-      <div class="d-flex justify-content-between align-items-center mb-3 ">
-        <img id="img_employe" src="" alt="">
-        <h5 class="fw-bold m-0">Nouvel employé</h5>
-        <button type="button" id="close_btn" class="btn-close"></button>
-      </div>
-      <div class="body_form">
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Nom</label>
-          <input type="text" id="nom" class="form-control " name="name">
-          <small id="infonom" class="text-warning"></small>
+    <section id="formulaire"
+      class="formulaire position-fixed top-0 p-2 mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3">
+      <form class="w-100 ">
+
+        <div class="d-flex justify-content-between align-items-center mb-3 ">
+          <img id="img_employe" src="" alt="">
+          <h5 class="fw-bold m-0">Nouvel employé</h5>
+          <button type="button" id="close_btn" class="btn-close"></button>
         </div>
+        <div class="body_form">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nom</label>
+            <input type="text" id="nom" class="form-control " name="name">
+            <small id="infonom" class="text-warning"></small>
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Rôle</label>
-          <select class="form-select" id="role" name="role">
-            <option disabled selected hidden>Choisir</option>
-            <option>Manager</option>
-            <option>Réceptionniste</option>
-            <option>Technicien IT</option>
-            <option>Agent de sécurité</option>
-            <option>Nettoyage</option>
-            <option>Autre</option>
-          </select>
-          <small class="text-warning" id="inforole"></small>
-        </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Rôle</label>
+            <select class="form-select" id="role" name="role">
+              <option disabled selected hidden>Choisir</option>
+              <option>Manager</option>
+              <option>Réceptionniste</option>
+              <option>Technicien IT</option>
+              <option>Agent de sécurité</option>
+              <option>Nettoyage</option>
+              <option>Autre</option>
+            </select>
+            <small class="text-warning" id="inforole"></small>
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Téléphone</label>
-          <input type="tel" id="phone" class="form-control" name="phone">
-          <small id="infotele" class="text-warning"></small>
-        </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Téléphone</label>
+            <input type="tel" id="phone" class="form-control" name="phone">
+            <small id="infotele" class="text-warning"></small>
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Email</label>
-          <input id="mail" type="email" class="form-control" name="email">
-          <small id="infomail" class="text-warning"></small>
-        </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Email</label>
+            <input id="mail" type="email" class="form-control" name="email">
+            <small id="infomail" class="text-warning"></small>
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label fw-semibold">Photo URL</label>
-          <input type="url" id="urlimg" class="form-control" name="photo" placeholder="le url de photo ">
-        </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Photo URL</label>
+            <input type="url" id="urlimg" class="form-control" name="photo" placeholder="le url de photo ">
+          </div>
 
-        <hr>
+          <hr>
 
-        <h6 class="fw-bold mb-3">Expériences professionnelles</h6>
-        <div id="experiences">
-          <div class="row g-2 mb-3">
-            <div class="col-6">
-              <label class="form-label">Poste</label>
-              <input type="text" class="form-control" name="expPoste">
-            </div>
+          <h6 class="fw-bold mb-3">Expériences professionnelles</h6>
+          <div id="experiences">
+            <div class="row g-2 mb-3">
+              <div class="col-6">
+                <label class="form-label">Poste</label>
+                <input type="text" class="form-control" name="expPoste">
+              </div>
 
-            <div class="col-6">
-              <label class="form-label">Entreprise</label>
-              <input type="text" class="form-control" name="expEntreprise">
-            </div>
+              <div class="col-6">
+                <label class="form-label">Entreprise</label>
+                <input type="text" class="form-control" name="expEntreprise">
+              </div>
 
-            <div class="col-6">
-              <label class="form-label">Date start</label>
-              <input id="datestart" type="date" class="form-control" name="dateStart">
-            </div>
+              <div class="col-6">
+                <label class="form-label">Date start</label>
+                <input id="datestart" type="date" class="form-control" name="dateStart">
+              </div>
 
-            <div class="col-6">
-              <label class="form-label">Date fin</label>
-              <input id="datefin" type="date" class="form-control" name="dateEnd">
+              <div class="col-6">
+                <label class="form-label">Date fin</label>
+                <input id="datefin" type="date" class="form-control" name="dateEnd">
+              </div>
+              <small class="text-warning" id="infodate"></small>
             </div>
             <small class="text-warning" id="infodate"></small>
           </div>
+
+
+
+          <button type="button" class="btn-tow rounded-2 mt-2 w-100 mb-3" id="ajout_exeprience">
+            <i class="bi bi-plus-circle"></i> Ajouter expérience
+          </button>
+
+          <div class="d-flex justify-content-end gap-2 ">
+            <button id="annuler_btn" type="button" class="btn btn-secondary">Annuler</button>
+            <button id="sauvegarder" type="button" class="btn-pr text-light">Sauvegarder</button>
+          </div>
         </div>
-
-
-
-        <button type="button" class="btn-tow rounded-2 mt-2 w-100 mb-3" id="ajout_exeprience">
-          <i class="bi bi-plus-circle"></i> Ajouter expérience
-        </button>
-
-        <div class="d-flex justify-content-end gap-2">
-          <button id="annuler_btn" type="button" class="btn btn-secondary">Annuler</button>
-          <button id="sauvegarder" type="button" class="btn-pr text-light">Sauvegarder</button>
-        </div>
-      </div>
-    </form>
-  </section>
-
-
+      </form>
+    </section>
+    <div class="col-3 list-group-item d-flex justify-content-between align-items-center">
+      <img class="rounded-4" src="plan-69159a65c5684763515973.jpg" width="50" height="50" alt="">
+      <span>elo abdellah responsable</span>
+      <button class="btn btn-sm btn-primary assign-btn">
+        <i class="bi bi-box-arrow-in-right"></i>
+      </button>
+    </div>
+  </div>
   <script src="/script/script.js"></script>
 </body>
 

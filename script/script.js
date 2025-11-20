@@ -1,33 +1,35 @@
 const btnajout = document.getElementById('btnajout');
 const formulaire = document.getElementById('formulaire');
-const annuler_btn = document.getElementById('annuler_btn');
-const close_btn = document.getElementById('close_btn');
+const annuler_btn = document.getElementById('annuler_btn')
+const close_btn = document.getElementById('close_btn')
 const ajout_exeprience = document.getElementById('ajout_exeprience');
 const experiences = document.getElementById('experiences');
 const sauvegarder = document.getElementById('sauvegarder');
 const datestart = document.getElementById('datestart')
 const datefin = document.getElementById('datefin')
-const nom = document.getElementById('nom');
+const nom = document.getElementById('nom')
 const role = document.getElementById('role');
-const phone = document.getElementById('phone');
+const phone = document.getElementById('phone')
 const mail = document.getElementById('mail');
 const urlimg = document.getElementById('urlimg');
 const inforole = document.getElementById('inforole')
 const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
-const infodate = document.getElementById('infodate');
+// const infodate = document.getElementById('infodate');
 const btn_stockage = document.getElementById('btn_stockage')
-const btn_reunion = document.getElementById('btn_reunion');
+const btn_reunion = document.getElementById('btn_reunion')
 const btn_bureaux = document.getElementById('btn_bureaux');
 const btn_sallon = document.getElementById('btn_sallon');
 const btn_manger = document.getElementById('btn_manger');
 const btn_space = document.getElementById('btn_space');
+const list_employee_non_assignes = document.getElementById('list_employee_non_assignes')
 
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
 function sauvegarde_local() {
     localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
 }
+afficher_non_assigne()
 
 let max_id = 0;
 for (let emp of les_employees) {
@@ -188,6 +190,7 @@ sauvegarder.addEventListener('click', () => {
         formulaire.classList.add('d-none');
         experiences.innerHTML = '';
         rest_formulaire();
+        afficher_non_assigne();
     }
 
     // const les_sale = [
@@ -209,3 +212,63 @@ sauvegarder.addEventListener('click', () => {
 btn_bureaux.addEventListener('click', () => {
     console.log("bouton br");
 });
+
+
+function afficher_non_assigne() {
+
+    list_employee_non_assignes.innerHTML = "";
+    les_employees.forEach(emp => {
+        if (emp.assignedTo == null || emp.assignedTo == "") {
+            const li = document.createElement("li");
+            li.className = "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
+
+            li.innerHTML = `
+                <img class="rounded-4" 
+                     src="${emp.photo || 'plan-69159a65c5684763515973.jpg'}" 
+                     width="50" height="50" alt="">
+                
+                <div class="d-flex flex-column flex-grow-1 mx-2">
+                    <span class="fw-bold">${emp.nom}</span>
+                    <small class="text-secondary">${emp.role}</small>
+                </div>
+
+                <button class="btn-pr p-2 assign-btn d-flex align-items-center" 
+                        data-id="${emp.id}">
+                    <i class="bi bi-box-arrow-in-right fs-5"></i>
+                </button>
+            `;
+
+            list_employee_non_assignes.appendChild(li);
+        }
+    });
+}
+function canAccess(role, zone) {
+
+   
+    if (role === "manager") return true;
+
+
+    if (zone === "réception") {
+        return role === "réceptionniste";
+    }
+
+    if (zone === "salle-serveurs") {
+        return role === "technicien-it";
+    }
+
+    if (zone === "salle-securite") {
+        return role === "agent-securite";
+    }
+
+    if (zone === "archives") {
+        return role !== "nettoyage";
+    }
+
+    if (zone === "zone-restreinte") {
+        return false;
+    }
+
+   
+    return true;
+}
+
