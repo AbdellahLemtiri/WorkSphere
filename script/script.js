@@ -28,7 +28,7 @@ for (let emp of les_employees) {
         max_id = emp.id;
     }
 }
-function rest_formulaire(){
+function rest_formulaire() {
     inforole.textContent = "";
     infotele.textContent = "";
     infomail.textContent = "";
@@ -85,7 +85,7 @@ ajout_exeprience.addEventListener('click', () => {
 btnajout.addEventListener('click', () => {
     formulaire.classList.remove('d-none');
     rest_formulaire();
-   
+
 })
 
 annuler_btn.addEventListener('click', () => {
@@ -103,7 +103,7 @@ sauvegarder.addEventListener('click', () => {
     const regnom = /^[A-Za-z ]{3,30}$/;
     const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    
+
 
     let erreur = false;
     if (!regphone.test(phone.value)) {
@@ -152,29 +152,30 @@ sauvegarder.addEventListener('click', () => {
         };
 
 
-      let toutes_les_experiences = [];
 
-document.querySelectorAll('#experiences .experience-item').forEach(une_exp => {
+        let toutes_les_experiences = [];
 
-    const poste = une_exp.querySelector('input[name="expPoste"]')?.value.trim() || '';
-    const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value.trim() || '';
-    const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || '';
-    const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || '';
+        document.querySelectorAll('#experiences .experience-item').forEach(une_exp => {
 
-    if (poste || entreprise || date_start || date_fin) {
-        toutes_les_experiences.push({
-            poste: poste,
-            entreprise: entreprise,
-            datestart: date_start,
-            datefin: date_fin
+            const poste = une_exp.querySelector('input[name="expPoste"]')?.value.trim() || '';
+            const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value.trim() || '';
+            const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || '';
+            const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || '';
+
+            if (poste || entreprise || date_start || date_fin) {
+                toutes_les_experiences.push({
+                    poste: poste,
+                    entreprise: entreprise,
+                    datestart: date_start,
+                    datefin: date_fin
+                });
+            }
+
         });
-    }
 
-});
-
-    console.log(les_employees);
+        console.log(les_employees);
         toutes_les_experiences.push(une_experiences)
-        employe.experiences=toutes_les_experiences;
+        employe.experiences = toutes_les_experiences;
         les_employees.push(employe);
         sauvegarde_local();
         formulaire.classList.add('d-none');
