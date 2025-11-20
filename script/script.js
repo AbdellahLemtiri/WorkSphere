@@ -28,7 +28,20 @@ for (let emp of les_employees) {
         max_id = emp.id;
     }
 }
+function rest_formulaire(){
+    inforole.textContent = "";
+    infotele.textContent = "";
+    infomail.textContent = "";
+    infonom.textContent = "";
+    experiences.innerHTML = "";
+    nom.value = "";
+    datefin.value = ""
+    datestart.value = ""
+    mail.value = "";
+    phone.value = "";
+    role.value = "Choisir";
 
+}
 let id_emp = max_id + 1;
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
@@ -71,17 +84,8 @@ ajout_exeprience.addEventListener('click', () => {
 });
 btnajout.addEventListener('click', () => {
     formulaire.classList.remove('d-none');
-    inforole.textContent = "";
-    infotele.textContent = "";
-    infomail.textContent = "";
-    infonom.textContent = "";
-    experiences.innerHTML = "";
-    nom.value = "";
-    datefin.value = ""
-    datestart.value = ""
-    mail.value = "";
-    phone.value = "";
-    role.value = "Choisir";
+    rest_formulaire();
+   
 })
 
 annuler_btn.addEventListener('click', () => {
