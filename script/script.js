@@ -17,12 +17,12 @@ const infotele = document.getElementById('infotele')
 const infomail = document.getElementById('infomail');
 const infonom = document.getElementById('infonom');
 // const infodate = document.getElementById('infodate');
-const btn_stockage = document.getElementById('btn_stockage')
-const btn_reunion = document.getElementById('btn_reunion')
-const btn_bureaux = document.getElementById('btn_bureaux');
-const btn_sallon = document.getElementById('btn_sallon');
-const btn_manger = document.getElementById('btn_manger');
-const btn_space = document.getElementById('btn_space');
+const btn_darchives = document.getElementById('btn_darchives')
+const btn_personnel = document.getElementById('btn_personnel')
+const btn_securite = document.getElementById('btn_securite');
+const btn_Reception = document.getElementById('btn_Reception');
+const btn_conference = document.getElementById('btn_conference');
+const btn_serveurs = document.getElementById('btn_serveurs');
 const list_employee_non_assignes = document.getElementById('list_employee_non_assignes')
 
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
@@ -51,6 +51,7 @@ function rest_formulaire() {
     role.value = "Choisir";
 
 }
+
 let id_emp = max_id + 1;
 datestart.addEventListener('change', () => {
     const start = new Date(datestart.value);
@@ -62,13 +63,9 @@ datestart.addEventListener('change', () => {
 
 });
 
-
-
 ajout_exeprience.addEventListener('click', () => {
     const exp = document.createElement('div');
     exp.className = "row mb-2 experience-item";
-
-
     exp.innerHTML = `
         <div class="col-6">
             <label class="form-label">Poste</label>
@@ -157,7 +154,7 @@ sauvegarder.addEventListener('click', () => {
             role: role.value,
             email: mail.value,
             phone: phone.value,
-            photo: urlimg.value || 'https://via.placeholder.com/80?text=Photo',
+            photo: urlimg.value || "plan-69159a65c5684763515973.jpg",
             experiences: [],
             assignedTo: null
         };
@@ -166,8 +163,8 @@ sauvegarder.addEventListener('click', () => {
         const toutes_les_experiences = [];
 
         document.querySelectorAll('#experiences .experience-item').forEach(une_exp => {
-            const poste = une_exp.querySelector('input[name="expPoste"]')?.value.trim() || '';
-            const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value.trim() || '';
+            const poste = une_exp.querySelector('input[name="expPoste"]')?.value || '';
+            const entreprise = une_exp.querySelector('input[name="expEntreprise"]')?.value || '';
             const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || '';
             const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || '';
 
@@ -181,9 +178,7 @@ sauvegarder.addEventListener('click', () => {
             }
         });
 
-
         employe.experiences = toutes_les_experiences;
-
 
         les_employees.push(employe);
         sauvegarde_local();
@@ -193,25 +188,39 @@ sauvegarder.addEventListener('click', () => {
         afficher_non_assigne();
     }
 
-    // const les_sale = [
-
-    //     { id: "salle_manger", nome: "Salle a manger", employees: [], capacity: 4, },
-    //     { id: "salon", nome: "Salon", capacity: 6, employees: [] },
-    //     { id: "open_space", nome: "Open Space", employees: [], capacity: 10, },
-    //     { id: "bureaux", nome: "Bureaux", employees: [], capacity: 3, },
-    //     { id: "salle_reunion", nome: "Salle de reunion", employees: [], capacity: 8, },
-    //     { id: "stockage", nome: "Stockage", employees: [], capacity: 2, },
-
-    // ];
-
-
-
-
-
 });
-btn_bureaux.addEventListener('click', () => {
-    console.log("bouton br");
-});
+
+function afficheradmis(liste, zone) {
+    const container = document.getElementById("admis");
+    container.innerHTML = "";
+
+    liste.forEach(emp => {
+        const li = document.createElement("li");
+        li.className = "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
+
+        li.innerHTML = `
+            <img class="rounded-4" src="${emp.photo}" width="50" height="50">
+            <div class="d-flex flex-column flex-grow-1 mx-2">
+                <div class="fw-bold">${emp.nom}</div>
+                <div class="text-secondary">${emp.role}</div>
+            </div>
+            <button class="btn-pr p-2  assign-btn" data-id="${emp.id}" data-zone="${zone}">
+              <i class="bi bi-person-plus-fill"></i>
+            </button>
+        `;
+ li.querySelector('.assign-btn').addEventListener('click',()=>{
+        assignfx(emp.id,zone)
+        console.log(emp.id);
+        console.log(zone);
+        const nouvelle_list = les_employees.filter(emp => emp.assignedTo === null && est_admis(emp.role, zone));
+    afficheradmis(nouvelle_list, zone);
+    })
+        container.appendChild(li);
+    });
+
+   
+}
+
 
 
 function afficher_non_assigne() {
@@ -220,55 +229,127 @@ function afficher_non_assigne() {
     les_employees.forEach(emp => {
         if (emp.assignedTo == null || emp.assignedTo == "") {
             const li = document.createElement("li");
+
             li.className = "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
-
             li.innerHTML = `
-                <img class="rounded-4" 
-                     src="${emp.photo || 'plan-69159a65c5684763515973.jpg'}" 
-                     width="50" height="50" alt="">
-                
+                <img class="rounded-4" src="${emp.photo || 'plan-69159a65c5684763515973.jpg'}" width="50" height="50" alt="">
                 <div class="d-flex flex-column flex-grow-1 mx-2">
-                    <span class="fw-bold">${emp.nom}</span>
-                    <small class="text-secondary">${emp.role}</small>
+                    <div class="fw-bold">${emp.nom}</div>
+                    <div class="text-secondary">${emp.role}</div>
                 </div>
-
-                <button class="btn-pr p-2 assign-btn d-flex align-items-center" 
-                        data-id="${emp.id}">
-                    <i class="bi bi-box-arrow-in-right fs-5"></i>
-                </button>
+               
             `;
 
             list_employee_non_assignes.appendChild(li);
         }
     });
 }
-function canAccess(role, zone) {
 
-   
+
+function est_admis(role, zone) {
+    role = role.toLowerCase();
+    zone = zone.toLowerCase();
+
     if (role === "manager") return true;
-
-
-    if (zone === "réception") {
-        return role === "réceptionniste";
-    }
-
-    if (zone === "salle-serveurs") {
-        return role === "technicien-it";
-    }
-
-    if (zone === "salle-securite") {
-        return role === "agent-securite";
-    }
-
-    if (zone === "archives") {
-        return role !== "nettoyage";
-    }
-
-    if (zone === "zone-restreinte") {
-        return false;
-    }
-
-   
+    if (zone === "reception") return role === "receptionniste";
+    if (zone === "salle-serveurs") return role === "technicien it";
+    if (zone === "salle-securite") return role === "agent de securite";
+    if (zone === "archives") return role !== "nettoyage";
+    if (zone === "zone-restreinte") return false;
     return true;
 }
+ // <button class="btn-pr p-2 assign-btn d-flex align-items-center" data-id="${emp.id}">
+                //     <i class="bi bi-box-arrow-in-right fs-5"></i>
+                // </button>
+
+btn_personnel.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "reception")
+    );
+    afficheradmis(les_admis, "reception");
+});
+
+btn_Reception.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "reception")
+    );
+    afficheradmis(les_admis, "reception");
+});
+
+btn_serveurs.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "salleServeurs")
+    );
+    afficheradmis(les_admis, "salleServeurs");
+});
+
+
+btn_darchives.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "archives")
+    );
+    afficheradmis(les_admis, "archives");
+});
+
+btn_securite.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "salle-securite")
+    );
+    afficheradmis(les_admis, "salle-securite");
+});
+
+btn_conference.addEventListener('click', () => {
+    const les_admis = les_employees.filter(emp =>
+        emp.assignedTo === null && est_admis(emp.role, "conference")
+    );
+    afficheradmis(les_admis, "conference");
+
+});
+
+const zonesmax= {
+    reception: {
+         min: 0, max: 2 },
+    salleServeurs: { min: 0, max: 1 },
+    securite: { min: 0, max: 3 },
+    archives: { min: 0, max: 1 },
+    conference: { min: 0, max: 12 },
+    manager: { min: 0, max: 5 }
+};
+
+const compt_zones = {
+    reception: 10,
+    salleServeurs: 0,
+    securite: 0,
+    archives: 0,
+    conference: 0,
+    manager: 0
+};
+
+
+
+// if (compt_zones[zone] >= zonesmax[zone].max) return;
+
+function assignfx(id, zone) {
+    if (compt_zones[zone] >= zonesmax[zone].max) {
+        console.log("Le salle est plein");
+        return;
+    }
+
+    for (let emp of les_employees) {
+        if (emp.id === id && !emp.assignedTo) { 
+            emp.assignedTo = zone;
+            compt_zones[zone]++;
+            localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
+            afficher_non_assigne();
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
 

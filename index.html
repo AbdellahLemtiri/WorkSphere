@@ -36,19 +36,25 @@
 
       <div class="col-lg-9 p-1">
         <div class="plan">
-          <div class="room salle_manger"> <button id="btn_manger" class=" position-absolute"><i
-                class="bi bi-plus-square"></i>es </button> <img src="ROM1.jpg" alt="rom manager"></div>
-          <div class="room salon"> <button id="btn_sallon" class=" position-absolute"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM2.jpg" alt="rom salon"></div>
-          <div class="room open_space"> <button id="btn_space" class=" position-absolute"><i
-                class="bi bi-plus-square"></i></button><img src="ROM3.jpg" alt="open space"></div>
-          <div class="room bureaux"> <button id="btn_bureaux" class=" position-absolute"><i
-                class="bi bi-plus-square"></i></button><img src="ROM4.jpg" alt="bureaux"></div>
-          <div class="room salle_reunion"> <button id="btn_reunion" class=" position-absolute"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM6.jpg" alt="salle réunion"></div>
-          <div class="room stockage"> <button id="btn_stockage" class=" position-absolute"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM5.jpg" alt="stockage"></div>
+          <div class="room conference"> <button id="btn_conference" class=" data-zone-conference  position-absolute"><i
+                class="bi bi-plus-square"></i></button> <img src="ROM1.jpg" alt="rom conference"></div>
+
+          <div class="room Reception"> <button id="btn_Reception" class=" data-zone-Reception position-absolute"><i
+                class="bi bi-plus-square"></i></button> <img src="ROM2.jpg" alt="rom Reception"></div>
+
+          <div class="room serveurs"> <button id="btn_serveurs" class=" position-absolute data-zone-salleServeurs"><i
+                class="bi bi-plus-square"></i></button><img src="ROM3.jpg" alt="salle serveurs"></div>
+
+          <div class="room securite"> <button id="btn_securite" class=" position-absolute data-zone-securite"><i
+                class="bi bi-plus-square"></i></button><img src="ROM4.jpg" alt="salle securite "></div>
+
+          <div class="room  personnel"> <button id="btn_personnel" class=" position-absolute data-zone-manager"><i
+                class="bi bi-plus-square"></i></button> <img src="ROM6.jpg" alt="salle  personnel"></div>
+
+          <div class="room darchives"> <button id="btn_darchives" class=" position-absolute data-zone-archives"><i
+                class="bi bi-plus-square"></i></button> <img src="ROM5.jpg" alt="salle darchives"></div>
         </div>
+
       </div>
 
     </div>
@@ -74,9 +80,9 @@
             <select class="form-select" id="role" name="role">
               <option disabled selected hidden>Choisir</option>
               <option>Manager</option>
-              <option>Réceptionniste</option>
+              <option>Receptionniste</option>
               <option>Technicien IT</option>
-              <option>Agent de sécurité</option>
+              <option>Agent de securite</option>
               <option>Nettoyage</option>
               <option>Autre</option>
             </select>
@@ -142,14 +148,9 @@
         </div>
       </form>
     </section>
-    <div class="col-3 list-group-item d-flex justify-content-between align-items-center">
-      <img class="rounded-4" src="plan-69159a65c5684763515973.jpg" width="50" height="50" alt="">
-      <span>elo abdellah responsable</span>
-      <button class="btn btn-sm btn-primary assign-btn">
-        <i class="bi bi-box-arrow-in-right"></i>
-      </button>
-    </div>
+   
   </div>
+  <div class="position-absolute" id="admis"></div>
   <script src="/script/script.js"></script>
 </body>
 
