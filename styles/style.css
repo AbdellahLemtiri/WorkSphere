@@ -108,7 +108,10 @@ body {
     font-size: 22px;
     margin-top: 10px;
 }
-
+.card{
+    width: 18rem;
+    border-radius: 15px;
+}
 .experience-block {
     padding: 10px;
     background: #f7f7f7;

@@ -180,7 +180,7 @@ sauvegarder.addEventListener("click", () => {
       role: role.value,
       email: mail.value,
       phone: phone.value,
-      photo: urlimg.value || "plan-69159a65c5684763515973.jpg",
+      photo: urlimg.value || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg",
       experiences: [],
       assignedTo: null,
     };
@@ -294,7 +294,7 @@ function afficher_non_assigne() {
       <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3 flex-grow-1">
                 <img src="${
-                  les_employees[i].photo || "plan-69159a65c5684763515973.jpg"
+                  les_employees[i].photo || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
                 }" 
                      class=" rounded-4 object-fit-cover" 
                      width="50" height="50" alt="${les_employees[i].nom}">
@@ -447,7 +447,7 @@ function afficherAssignes(zone) {
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3 flex-grow-1">
                     <img src="${
-                        emp.photo || "plan-69159a65c5684763515973.jpg"
+                        emp.photo || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
                     }" 
                         class=" rounded-4 object-fit-cover" 
                         width="50" height="50" alt="${emp.nom}">
@@ -517,26 +517,33 @@ function afficherAssignes(zone) {
   }
 }
 verifier_zon();
+
 function affichier_ProfileCard(i) {
   profile.innerHTML = "";
   const emp = les_employees[i];
   const card = document.createElement("div");
   card.className = "card_profile";
   card.innerHTML = `
-        <div style="text-align:center;">
-            <img src="${emp.photo}" width="100" height="100"
-                style="border-radius:50%; object-fit:cover;">
-        </div>
+  <div class="card shadow-sm p-3">
+    <div class="text-center">
+        <img src="${emp.photo}" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
+    </div>
 
-        <h3 style="text-align:center;">${emp.nom}</h3>
-        <p style="text-align:center; color:gray;">${emp.role}</p>
+    <div class="card-body text-center">
+        <h5 class="card-title mb-1">${emp.nom}</h5>
+        <p class="text-muted mb-2">${emp.role}</p>
         <hr>
-        <p><strong>ID:</strong> ${emp.id}</p>
-        <p><strong>Email:</strong> ${emp.email}</p>
-        <p><strong>Téléphone:</strong> ${emp.phone}</p>
-        <p><strong>Affectation:</strong> ${emp.assignedTo || "Aucune"}</p>
-        <h4 style="margin-top:15px;">Expériences</h4>
-        <div class="exp_list"></div>
+
+        <p class="mb-1"><strong>ID:</strong> ${emp.id}</p>
+        <p class="mb-1"><strong>Email:</strong> ${emp.email}</p>
+        <p class="mb-1"><strong>Téléphone:</strong> ${emp.phone}</p>
+        <p class="mb-3"><strong>Affectation:</strong> ${emp.assignedTo || "Aucune"}</p>
+
+        <h6 class="mt-3">Expériences</h6>
+        <div class="exp_list text-start"></div>
+    </div>
+</div>
+
     `;
   const expList = card.querySelector(".exp_list");
   if (emp.experiences.length === 0) {
