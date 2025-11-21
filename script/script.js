@@ -17,24 +17,42 @@ const infotele = document.getElementById("infotele");
 const infomail = document.getElementById("infomail");
 const infonom = document.getElementById("infonom");
 // const infodate = document.getElementById('infodate');
+const cont_admis=document.getElementById('cont_admis');
+const close_admis= document.getElementById('close_admis')
+const admis = document.getElementById('admis');
+const profile = document.getElementById("profile_zone");
+const zoneConference = document.querySelector(".conference");
+const zoneReception = document.querySelector(".reception");
+const zoneServeurs = document.querySelector(".serveurs");
+const zoneSecurite = document.querySelector(".securite");
+const zonePersonnel = document.querySelector(".personnel");
+const zoneArchives = document.querySelector(".darchives");
 const btn_darchives = document.getElementById("btn_darchives");
 const btn_personnel = document.getElementById("btn_personnel");
 const btn_securite = document.getElementById("btn_securite");
 const btn_Reception = document.getElementById("btn_Reception");
 const btn_conference = document.getElementById("btn_conference");
 const btn_serveurs = document.getElementById("btn_serveurs");
+
 const list_employee_non_assignes = document.getElementById(
   "list_employee_non_assignes"
 );
 
 let les_employees =
   JSON.parse(localStorage.getItem("worksphere_employees")) || [];
-
 function sauvegarde_local() {
   localStorage.setItem("worksphere_employees", JSON.stringify(les_employees));
 }
-afficher_non_assigne();
+const zonesmax = {
+  reception: { max: 2 },
+  serveurs: { max: 4 },
+  securite: { max: 2 },
+  archives: { max: 2 },
+  conference: { max: 12 },
+  personnel: { max: 5 },
+};
 
+afficher_non_assigne();
 let max_id = 0;
 for (let emp of les_employees) {
   if (emp.id > max_id) {
@@ -55,7 +73,6 @@ function rest_formulaire() {
   phone.value = "";
   role.value = "Choisir";
 }
-
 let id_emp = max_id + 1;
 datestart.addEventListener("change", () => {
   const start = new Date(datestart.value);
@@ -91,6 +108,16 @@ ajout_exeprience.addEventListener("click", () => {
 
   experiences.appendChild(exp);
 });
+
+document.getElementById("close_profile_modal").addEventListener("click", () => {
+  document.getElementById("profile_zone_sss").classList.add("d-none");
+});
+
+document.getElementById("profile_zone_sss").addEventListener("click", (e) => {
+  if (e.target === document.getElementById("profile_zone_sss")) {
+    document.getElementById("profile_zone_sss").classList.add("d-none");
+  }
+});
 btnajout.addEventListener("click", () => {
   formulaire.classList.remove("d-none");
   rest_formulaire();
@@ -107,9 +134,9 @@ sauvegarder.addEventListener("click", () => {
   infotele.textContent = "";
   infomail.textContent = "";
   infonom.textContent = "";
-  const regphone = /^(05|06|07)[0-9]{8}$/;
+  const regphone = /^(05|06|07|212)[0-9]{8}$/;
   const regnom = /^[A-Za-z ]{3,30}$/;
-  const regmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const regmail = /^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
 
   let erreur = false;
   if (!regphone.test(phone.value)) {
@@ -161,16 +188,11 @@ sauvegarder.addEventListener("click", () => {
     const toutes_les_experiences = [];
 
     document
-      .querySelectorAll("#experiences .experience-item")
-      .forEach((une_exp) => {
-        const poste =
-          une_exp.querySelector('input[name="expPoste"]')?.value || "";
-        const entreprise =
-          une_exp.querySelector('input[name="expEntreprise"]')?.value || "";
-        const date_start =
-          une_exp.querySelector('input[name="dateStart"]')?.value || "";
-        const date_fin =
-          une_exp.querySelector('input[name="dateEnd"]')?.value || "";
+      .querySelectorAll("#experiences .experience-item").forEach((une_exp) => {
+         const poste = une_exp.querySelector('input[name="expPoste"]')?.value || "";
+        const entreprise =une_exp.querySelector('input[name="expEntreprise"]')?.value || "";
+        const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || "";
+        const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || "";
 
         if (poste || entreprise || date_start || date_fin) {
           toutes_les_experiences.push({
@@ -186,29 +208,58 @@ sauvegarder.addEventListener("click", () => {
 
     les_employees.push(employe);
     sauvegarde_local();
+    calcule_zone();
     formulaire.classList.add("d-none");
     experiences.innerHTML = "";
     rest_formulaire();
     afficher_non_assigne();
   }
 });
+let compt_zones = {};
 
+function calcule_zone() {
+  compt_zones.reception = les_employees.filter(
+    (emp) => emp.assignedTo === "reception"
+  ).length;
+  compt_zones.serveurs = les_employees.filter(
+    (emp) => emp.assignedTo === "serveurs"
+  ).length;
+  compt_zones.securite = les_employees.filter(
+    (emp) => emp.assignedTo === "securite"
+  ).length;
+  compt_zones.archives = les_employees.filter(
+    (emp) => emp.assignedTo === "archives"
+  ).length;
+  compt_zones.conference = les_employees.filter(
+    (emp) => emp.assignedTo === "conference"
+  ).length;
+  compt_zones.personnel = les_employees.filter(
+    (emp) => emp.assignedTo === "personnel"
+  ).length;
+}
+calcule_zone();
 function afficheradmis(liste, zone) {
-  const container = document.getElementById("admis");
-  container.innerHTML = "";
-
+  verifier_zon();
+  calcule_zone();
+  if(liste.length === 0){
+  cont_admis.classList.remove('d-none')
+   admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe est admis a cette zone</li>`; 
+        return;
+  }
+  admis.innerHTML = "";
+  cont_admis.classList.remove('d-none')
   liste.forEach((emp) => {
     const li = document.createElement("li");
     li.className =
-      "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
+      "mt-2 bg-light  d-flex justify-content-between align-items-center gap-2 p-2";
 
     li.innerHTML = `
-            <img class="rounded-4" src="${emp.photo}" width="50" height="50">
+            <img class="rounded-4" src="${emp.photo}">
             <div class="d-flex flex-column flex-grow-1 mx-2">
                 <div class="fw-bold">${emp.nom}</div>
                 <div class="text-secondary">${emp.role}</div>
             </div>
-            <button class="btn-pr p-2  assign-btn" data-id="${emp.id}" data-zone="${zone}">
+            <button class="btn-pr p-2  assign-btn">
               <i class="bi bi-person-plus-fill"></i>
             </button>
         `;
@@ -221,32 +272,49 @@ function afficheradmis(liste, zone) {
       );
       afficheradmis(nouvelle_list, zone);
     });
-    container.appendChild(li);
+    admis.appendChild(li);
   });
 }
 
 function afficher_non_assigne() {
+  verifier_zon();
   list_employee_non_assignes.innerHTML = "";
-  les_employees.forEach((emp) => {
-    if (emp.assignedTo == null || emp.assignedTo == "") {
+  for (let i = 0; i < les_employees.length; i++) {
+    if (
+      les_employees[i].assignedTo == null ||
+      les_employees[i].assignedTo == ""
+    ) 
+    {
       const li = document.createElement("li");
 
       li.className =
-        "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
-      li.innerHTML = `
-                <img class="rounded-4" src="${
-                  emp.photo || "plan-69159a65c5684763515973.jpg"
-                }" width="50" height="50" alt="">
-                <div class="d-flex flex-column flex-grow-1 mx-2">
-                    <div class="fw-bold">${emp.nom}</div>
-                    <div class="text-secondary">${emp.role}</div>
-                </div>
-               
-            `;
+        "mt-2 bg-light d-flex justify-content-between align-items-center gap-2 p-2";
 
+      li.innerHTML = `
+      <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-3 flex-grow-1">
+                <img src="${
+                  les_employees[i].photo || "plan-69159a65c5684763515973.jpg"
+                }" 
+                     class=" rounded-4 object-fit-cover" 
+                     width="50" height="50" alt="${les_employees[i].nom}">
+                <div>
+                    <div class="fw-bold text-dark">${les_employees[i].nom}</div>
+                    <div class="text-secondary small">${
+                      les_employees[i].role
+                    }</div>
+                </div>
+            </div>
+        </div>
+    `;
       list_employee_non_assignes.appendChild(li);
+      li.addEventListener("click", () => {
+        console.log("heloo ba abdellah");
+        document.getElementById("profile_zone_sss").classList.remove("d-none");
+        affichier_ProfileCard(i);
+      });
     }
-  });
+  }
 }
 
 function est_admis(role, zone) {
@@ -254,29 +322,28 @@ function est_admis(role, zone) {
     return true;
   }
 
-  if (role === "Nettoyage" && zone === "archives") {
-    return false;
+  if (zone === "reception" && role === "Receptionniste") {
+    return true;
   }
-
-  if (zone === "reception") {
-    return role === "Receptionniste";
+  if (zone === "serveurs" && role === "Technicien IT") {
+    return true;
   }
-
-  if (zone === "serveurs") {
-    return role === "Technicien IT";
+  if (zone === "securite" && role === "Agent de securite") {
+    return true;
   }
-
-  if (zone === "securite") {
-    return role === "Agent de securite";
+  if (role === "Nettoyage" && zone != "archives") {
+    return true;
   }
-
-  return true;
+  if (role === "Autre") {
+    if (zone != "reception" || zone != "serveurs" || zone != "securite") {
+      return true;
+    }
+  }
+  return false;
 }
 
 btn_personnel.addEventListener("click", () => {
-  const les_admis = les_employees.filter(
-    (emp) => emp.assignedTo === null && est_admis(emp.role, "personnel")
-  );
+  const les_admis = les_employees.filter((emp) => emp.assignedTo === null && est_admis(emp.role, "personnel"));
   afficheradmis(les_admis, "personnel");
 });
 
@@ -289,9 +356,9 @@ btn_Reception.addEventListener("click", () => {
 
 btn_serveurs.addEventListener("click", () => {
   const les_admis = les_employees.filter(
-    (emp) => emp.assignedTo === null && est_admis(emp.role, "salleserveurs")
+    (emp) => emp.assignedTo === null && est_admis(emp.role, "serveurs")
   );
-  afficheradmis(les_admis, "salleserveurs");
+  afficheradmis(les_admis, "serveurs");
 });
 
 btn_darchives.addEventListener("click", () => {
@@ -315,118 +382,139 @@ btn_conference.addEventListener("click", () => {
   afficheradmis(les_admis, "conference");
 });
 
-const zonesmax = {
-  reception: {
-    min: 0,
-    max: 2,
-  },
-  salleserveurs: { min: 0, max: 4 },
-  securite: { min: 0, max: 2 },
-  archives: { min: 0, max: 2 },
-  conference: { min: 0, max: 12 },
-  personnel: { min: 0, max: 5 },
-};
-
-const compt_zones = [
-  (reception = 0),
-  (salleserveurs = 0),
-  (securite = 0),
-  (archives = 0),
-  (conference = 0),
-  (personnel = 0),
-];
-
 function assignfx(id, zone) {
+  calcule_zone();
   if (compt_zones[zone] >= zonesmax[zone].max) {
-    console.log("Le salle est plein");
+    alert("Le salle est plein le max et ", zonesmax[zone].max);
     return;
   }
 
   for (let emp of les_employees) {
     if (emp.id === id && !emp.assignedTo) {
       emp.assignedTo = zone;
-      compt_zones[zone]++;
-      localStorage.setItem(
-        "worksphere_employees",
-        JSON.stringify(les_employees)
-      );
+      sauvegarde_local();
+      calcule_zone()
+      document.getElementById("admis").innerHTML = "";
       afficher_non_assigne();
+      verifier_zon();
+
       break;
     }
   }
+
+  console.log("428  " + zonesmax[zone].max);
 }
-console.log(compt_zones.reception);
-console.log(compt_zones.personnel);
-console.log(compt_zones.securite);
-console.log(compt_zones.conference);
 
 document
   .getElementById("vue_conference")
-  .addEventListener("click", () => afficherAssignes("conference"));
-
+  .addEventListener("click", () =>afficherAssignes("conference"));
 document
   .getElementById("vue_Reception")
-  .addEventListener("click", () => afficherAssignes("reception"));
-
+  .addEventListener("click", () =>afficherAssignes("reception"));
 document
   .getElementById("vue_serveurs")
-  .addEventListener("click", () => afficherAssignes("salleserveurs"));
-
+  .addEventListener("click", () =>afficherAssignes("serveurs"));
 document
   .getElementById("vue_securite")
-  .addEventListener("click", () => afficherAssignes("securite"));
-
+  .addEventListener("click", () =>afficherAssignes("securite"));
 document
   .getElementById("vue_personnel")
-  .addEventListener("click", () => afficherAssignes("manager"));
-
+  .addEventListener("click", () =>afficherAssignes("personnel"));
 document
   .getElementById("vue_darchives")
-  .addEventListener("click", () => afficherAssignes("archives"));
-
+  .addEventListener("click", () =>afficherAssignes("archives"));
+close_admis.addEventListener('click',() => {
+cont_admis.classList.add('d-none')
+})
 function afficherAssignes(zone) {
-  const container = document.getElementById("admis");
-  container.innerHTML = "";
+    calcule_zone(); 
+    verifier_zon();
+    cont_admis.classList.remove('d-none');
+    admis.innerHTML = "";
 
-  const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
+    const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
 
-  if (assignes.length === 0) {
-    container.innerHTML = `<li class="text-warning list-group-item">Aucun employé assigné</li>`;
-    return;
+    if (assignes.length === 0) {
+        admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe assigne</li>`; 
+        return;
+    }
+
+    assignes.forEach((emp) => { 
+        const li = document.createElement("li");
+        li.className = "card_ass p-2 mt-2 bg-light list-group-item"; 
+
+        li.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                    <img src="${
+                        emp.photo || "plan-69159a65c5684763515973.jpg"
+                    }" 
+                        class=" rounded-4 object-fit-cover" 
+                        width="50" height="50" alt="${emp.nom}">
+                    <div>
+                        <div class="fw-bold text-dark">${emp.nom}</div>
+                        <div class="text-secondary small">${emp.role}</div>
+                    </div>
+                </div>
+                <button class="suppremerass btn btn-danger btn-sm ms-2">
+                    <i class="bi bi-x-octagon"></i>
+                </button>
+            </div>
+        `;
+
+        li.querySelector(".suppremerass").addEventListener("click", () => {
+            emp.assignedTo = null; 
+            sauvegarde_local();
+            calcule_zone();
+            afficher_non_assigne();
+            verifier_zon();
+            afficherAssignes(zone);
+        });
+        
+        admis.appendChild(li);
+    });
+}function verifier_zon() {
+  const nbReception = les_employees.filter(
+    (e) => e.assignedTo === "reception"
+  ).length;
+  const nbServeurs = les_employees.filter(
+    (e) => e.assignedTo === "serveurs"
+  ).length;
+  const nbSecurite = les_employees.filter(
+    (e) => e.assignedTo === "securite"
+  ).length;
+  const nbArchives = les_employees.filter(
+    (e) => e.assignedTo === "archives"
+  ).length;
+  if (nbReception === 0) {
+    zoneReception.classList.remove("bg_one");
+    zoneReception.classList.add("bg_tow");
+  } else {
+    zoneReception.classList.remove("bg_tow");
+    zoneReception.classList.add("bg_one");
+  }
+  if (nbServeurs === 0) {
+    zoneServeurs.classList.remove("bg_one");
+    zoneServeurs.classList.add("bg_tow");
+  } else {
+    zoneServeurs.classList.remove("bg_tow");
+    zoneServeurs.classList.add("bg_one");
   }
 
-  assignes.forEach((emp) => {
-    const li = document.createElement("li");
-    li.className =
-      "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
-
-    li.innerHTML = `
-      <div class="d-flex align-items-center w-100">
-  <img class="rounded-4" src="${emp.photo}" width="50" height="50">
-  <div class="d-flex flex-column flex-grow-1 mx-2">
-    <div class="fw-bold">${emp.nom}</div>
-    <div class="text-secondary">${emp.role}</div>
-  </div>
-  <button class="suppremerass btn btn-danger btn-sm ms-2">
-    <i class="bi bi-x-octagon"></i>
-  </button>
-   <button class="suppremerass btn btn-danger btn-sm ms-2">
-    <i class="bi bi-x-octagon"></i>
-  </button>
-</div>
-
-    `;
-
-    li.querySelector(".suppremerass").addEventListener("click", () => {
-      emp.assignedTo = null;
-      sauvegarde_local();
-      afficherAssignes(zone);
-      afficher_non_assigne();
-    });
-
-    container.appendChild(li);
-  });
+  if (nbSecurite === 0) {
+    zoneSecurite.classList.remove("bg_one");
+    zoneSecurite.classList.add("bg_tow");
+  } else {
+    zoneSecurite.classList.remove("bg_tow");
+    zoneSecurite.classList.add("bg_one");
+  }
+  if (nbArchives === 0) {
+    zoneArchives.classList.remove("bg_one");
+    zoneArchives.classList.add("bg_tow");
+  } else {
+    zoneArchives.classList.remove("bg_tow");
+    zoneArchives.classList.add("bg_one");
+  }
 }
-// function verifierzone(){
-//  let tabb =
-// }
+verifier_zon();
+
