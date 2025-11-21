@@ -327,7 +327,6 @@ const compt_zones = {
 
 
 
-// if (compt_zones[zone] >= zonesmax[zone].max) return;
 
 function assignfx(id, zone) {
     if (compt_zones[zone] >= zonesmax[zone].max) {

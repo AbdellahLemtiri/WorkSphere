@@ -36,23 +36,41 @@
 
       <div class="col-lg-9 p-1">
         <div class="plan">
-          <div class="room conference"> <button id="btn_conference" class=" data-zone-conference  position-absolute"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM1.jpg" alt="rom conference"></div>
+          <div class="room conference" data-zone="conference">
+            <button class="btn-plus" data-zone="conference"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM1.jpg" alt="Salle de conférence">
+            <div class="employes-dans-salle" id="zone-conference"></div>
+          </div>
 
-          <div class="room Reception"> <button id="btn_Reception" class=" data-zone-Reception position-absolute"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM2.jpg" alt="rom Reception"></div>
+          <div class="room reception" data-zone="reception">
+            <button class="btn-plus" data-zone="reception"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM2.jpg" alt="Réception">
+            <div class="employes-dans-salle" id="zone-reception"></div>
+          </div>
 
-          <div class="room serveurs"> <button id="btn_serveurs" class=" position-absolute data-zone-salleServeurs"><i
-                class="bi bi-plus-square"></i></button><img src="ROM3.jpg" alt="salle serveurs"></div>
+          <div class="room serveurs" data-zone="serveurs">
+            <button class="btn-plus" data-zone="serveurs"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM3.jpg" alt="Salle des serveurs">
+            <div class="employes-dans-salle" id="zone-serveurs"></div>
+          </div>
 
-          <div class="room securite"> <button id="btn_securite" class=" position-absolute data-zone-securite"><i
-                class="bi bi-plus-square"></i></button><img src="ROM4.jpg" alt="salle securite "></div>
+          <div class="room securite" data-zone="securite">
+            <button class="btn-plus" data-zone="securite"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM4.jpg" alt="Salle de sécurité">
+            <div class="employes-dans-salle" id="zone-securite"></div>
+          </div>
 
-          <div class="room  personnel"> <button id="btn_personnel" class=" position-absolute data-zone-manager"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM6.jpg" alt="salle  personnel"></div>
+          <div class="room personnel" data-zone="personnel">
+            <button class="btn-plus" data-zone="personnel"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM6.jpg" alt="Salle du personnel">
+            <div class="employes-dans-salle" id="zone-personnel"></div>
+          </div>
 
-          <div class="room darchives"> <button id="btn_darchives" class=" position-absolute data-zone-archives"><i
-                class="bi bi-plus-square"></i></button> <img src="ROM5.jpg" alt="salle darchives"></div>
+          <div class="room archives" data-zone="archives">
+            <button class="btn-plus" data-zone="archives"><i class="bi bi-plus-square"></i></button>
+            <img src="ROM5.jpg" alt="Salle d'archives">
+            <div class="employes-dans-salle" id="zone-archives"></div>
+          </div>
         </div>
 
       </div>
@@ -148,7 +166,7 @@
         </div>
       </form>
     </section>
-   
+
   </div>
   <div class="position-absolute" id="admis"></div>
   <script src="/script/script.js"></script>
