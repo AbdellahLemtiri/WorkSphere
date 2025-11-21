@@ -247,15 +247,14 @@ function afficher_non_assigne() {
 
 
 function est_admis(role, zone) {
-    role = role.toLowerCase();
-    zone = zone.toLowerCase();
+   
 
     if (role === "manager") return true;
     if (zone === "reception") return role === "receptionniste";
-    if (zone === "salle-serveurs") return role === "technicien it";
-    if (zone === "salle-securite") return role === "agent de securite";
+    if (zone === "salleserveurs") return role === "technicien it";
+    if (zone === "securite") return role === "agent de securite";
     if (zone === "archives") return role !== "nettoyage";
-    if (zone === "zone-restreinte") return false;
+    if (zone === "conference") return false;
     return true;
 }
  // <button class="btn-pr p-2 assign-btn d-flex align-items-center" data-id="${emp.id}">
@@ -278,9 +277,9 @@ btn_Reception.addEventListener('click', () => {
 
 btn_serveurs.addEventListener('click', () => {
     const les_admis = les_employees.filter(emp =>
-        emp.assignedTo === null && est_admis(emp.role, "salleServeurs")
+        emp.assignedTo === null && est_admis(emp.role, "salleserveurs")
     );
-    afficheradmis(les_admis, "salleServeurs");
+    afficheradmis(les_admis, "salleserveurs");
 });
 
 
@@ -309,7 +308,7 @@ btn_conference.addEventListener('click', () => {
 const zonesmax= {
     reception: {
          min: 0, max: 2 },
-    salleServeurs: { min: 0, max: 1 },
+    salleserveurs: { min: 0, max: 1 },
     securite: { min: 0, max: 3 },
     archives: { min: 0, max: 1 },
     conference: { min: 0, max: 12 },
@@ -318,7 +317,7 @@ const zonesmax= {
 
 const compt_zones = {
     reception: 0,
-    salleServeurs: 0,
+    salleserveurs: 0,
     securite: 0,
     archives: 0,
     conference: 0,
