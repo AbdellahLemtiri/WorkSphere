@@ -28,13 +28,7 @@ body {
 }
 
 
-/* button {
-    background:var(--primary);
-    color: #fff;
-}
-button:hover {
-    background:var(--primary-plus);
-}    */
+
 .btn-pr {
     background: var(--primary);
     color: var(--btn-text);
@@ -136,6 +130,7 @@ hr {
     width: 95%;
     margin: auto;
     background-color: #fee1a7;
+    gap:2px
 }
 .conference {
     grid-column: 1 / 4;

@@ -264,9 +264,9 @@ function est_admis(role, zone) {
 
 btn_personnel.addEventListener('click', () => {
     const les_admis = les_employees.filter(emp =>
-        emp.assignedTo === null && est_admis(emp.role, "reception")
+        emp.assignedTo === null && est_admis(emp.role, "manager")
     );
-    afficheradmis(les_admis, "reception");
+    afficheradmis(les_admis, "manager");
 });
 
 btn_Reception.addEventListener('click', () => {
@@ -293,9 +293,9 @@ btn_darchives.addEventListener('click', () => {
 
 btn_securite.addEventListener('click', () => {
     const les_admis = les_employees.filter(emp =>
-        emp.assignedTo === null && est_admis(emp.role, "salle-securite")
+        emp.assignedTo === null && est_admis(emp.role, "securite")
     );
-    afficheradmis(les_admis, "salle-securite");
+    afficheradmis(les_admis, "securite");
 });
 
 btn_conference.addEventListener('click', () => {
@@ -317,7 +317,7 @@ const zonesmax= {
 };
 
 const compt_zones = {
-    reception: 10,
+    reception: 0,
     salleServeurs: 0,
     securite: 0,
     archives: 0,
