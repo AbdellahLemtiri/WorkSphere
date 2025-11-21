@@ -26,6 +26,7 @@ const btn_serveurs = document.getElementById('btn_serveurs');
 const list_employee_non_assignes = document.getElementById('list_employee_non_assignes')
 
 let les_employees = JSON.parse(localStorage.getItem('worksphere_employees')) || [];
+
 function sauvegarde_local() {
     localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
 }
@@ -37,6 +38,7 @@ for (let emp of les_employees) {
         max_id = emp.id;
     }
 }
+
 function rest_formulaire() {
     inforole.textContent = "";
     infotele.textContent = "";
@@ -208,17 +210,17 @@ function afficheradmis(liste, zone) {
               <i class="bi bi-person-plus-fill"></i>
             </button>
         `;
- li.querySelector('.assign-btn').addEventListener('click',()=>{
-        assignfx(emp.id,zone)
-        console.log(emp.id);
-        console.log(zone);
-        const nouvelle_list = les_employees.filter(emp => emp.assignedTo === null && est_admis(emp.role, zone));
-    afficheradmis(nouvelle_list, zone);
-    })
+        li.querySelector('.assign-btn').addEventListener('click', () => {
+            assignfx(emp.id, zone)
+            console.log(emp.id);
+            console.log(zone);
+            const nouvelle_list = les_employees.filter(emp => emp.assignedTo === null && est_admis(emp.role, zone));
+            afficheradmis(nouvelle_list, zone);
+        })
         container.appendChild(li);
     });
 
-   
+
 }
 
 
@@ -245,23 +247,38 @@ function afficher_non_assigne() {
     });
 }
 
-
 function est_admis(role, zone) {
-    if (role === "Manager") return true;
-    if (role === "Nettoyage" && zone === "archives") return false;
 
-    if (zone === "reception")  return role === "Receptionniste";
-    if (zone === "serveurs")    return role === "Technicien IT";
-    if (zone === "securite")    return role === "Agent de securite";
+    if (role === "Manager") {
+        return true;
+    }
+
+    if (role === "Nettoyage" && zone === "archives") {
+        return false;
+    }
+
+    if (zone === "reception") {
+        return role === "Receptionniste";
+    }
+
+    if (zone === "serveurs") {
+        return role === "Technicien IT";
+    }
+
+    if (zone === "securite") {
+        return role === "Agent de securite";
+    }
+
 
     return true;
 }
 
+
 btn_personnel.addEventListener('click', () => {
     const les_admis = les_employees.filter(emp =>
-        emp.assignedTo === null && est_admis(emp.role, "manager")
+        emp.assignedTo === null && est_admis(emp.role, "personnel")
     );
-    afficheradmis(les_admis, "manager");
+    afficheradmis(les_admis, "personnel");
 });
 
 btn_Reception.addEventListener('click', () => {
@@ -301,14 +318,16 @@ btn_conference.addEventListener('click', () => {
 
 });
 
-const zonesmax= {
+const zonesmax = {
     reception: {
-         min: 0, max: 2 },
+        min: 0,
+        max: 2
+    },
     salleserveurs: { min: 0, max: 1 },
     securite: { min: 0, max: 3 },
     archives: { min: 0, max: 1 },
     conference: { min: 0, max: 12 },
-    manager: { min: 0, max: 5 }
+    personnel: { min: 0, max: 5 }
 };
 
 const compt_zones = {
@@ -317,7 +336,7 @@ const compt_zones = {
     securite: 0,
     archives: 0,
     conference: 0,
-    manager: 0
+    personnel: 0
 };
 
 
@@ -330,7 +349,7 @@ function assignfx(id, zone) {
     }
 
     for (let emp of les_employees) {
-        if (emp.id === id && !emp.assignedTo) { 
+        if (emp.id === id && !emp.assignedTo) {
             emp.assignedTo = zone;
             compt_zones[zone]++;
             localStorage.setItem('worksphere_employees', JSON.stringify(les_employees));
@@ -339,11 +358,3 @@ function assignfx(id, zone) {
         }
     }
 }
-
-
-
-
-
-
-
-
