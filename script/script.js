@@ -136,7 +136,7 @@ sauvegarder.addEventListener("click", () => {
   infonom.textContent = "";
   const regphone = /^(05|06|07|212)[0-9]{8}$/;
   const regnom = /^[A-Za-z ]{3,30}$/;
-  const regmail = /^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
+  const regmail = /^[a-zA-Z0-9 ]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/;
 
   let erreur = false;
   if (!regphone.test(phone.value)) {
@@ -517,4 +517,39 @@ function afficherAssignes(zone) {
   }
 }
 verifier_zon();
+function affichier_ProfileCard(i) {
+  profile.innerHTML = "";
+  const emp = les_employees[i];
+  const card = document.createElement("div");
+  card.className = "card_profile";
+  card.innerHTML = `
+        <div style="text-align:center;">
+            <img src="${emp.photo}" width="100" height="100"
+                style="border-radius:50%; object-fit:cover;">
+        </div>
 
+        <h3 style="text-align:center;">${emp.nom}</h3>
+        <p style="text-align:center; color:gray;">${emp.role}</p>
+        <hr>
+        <p><strong>ID:</strong> ${emp.id}</p>
+        <p><strong>Email:</strong> ${emp.email}</p>
+        <p><strong>Téléphone:</strong> ${emp.phone}</p>
+        <p><strong>Affectation:</strong> ${emp.assignedTo || "Aucune"}</p>
+        <h4 style="margin-top:15px;">Expériences</h4>
+        <div class="exp_list"></div>
+    `;
+  const expList = card.querySelector(".exp_list");
+  if (emp.experiences.length === 0) {
+    expList.innerHTML = `<p style="color:gray;">Aucune expérience</p>`;
+  } else {
+    emp.experiences.forEach((exp) => {
+      expList.innerHTML += `
+            <div class="experience-block">
+                <p><strong>Poste:</strong> ${exp.poste}</p>
+                <p><strong>Entreprise:</strong> ${exp.entreprise}</p>
+                <p><strong>Du:</strong> ${exp.dateStart} <strong>au</strong> ${exp.dateEnd}</p>
+            </div>`;
+    });
+  }
+  profile.appendChild(card);
+}
