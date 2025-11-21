@@ -247,19 +247,15 @@ function afficher_non_assigne() {
 
 
 function est_admis(role, zone) {
-   
+    if (role === "Manager") return true;
+    if (role === "Nettoyage" && zone === "archives") return false;
 
-    if (role === "manager") return true;
-    if (zone === "reception") return role === "receptionniste";
-    if (zone === "salleserveurs") return role === "technicien it";
-    if (zone === "securite") return role === "agent de securite";
-    if (zone === "archives") return role !== "nettoyage";
-    if (zone === "conference") return false;
+    if (zone === "reception")  return role === "Receptionniste";
+    if (zone === "serveurs")    return role === "Technicien IT";
+    if (zone === "securite")    return role === "Agent de securite";
+
     return true;
 }
- // <button class="btn-pr p-2 assign-btn d-flex align-items-center" data-id="${emp.id}">
-                //     <i class="bi bi-box-arrow-in-right fs-5"></i>
-                // </button>
 
 btn_personnel.addEventListener('click', () => {
     const les_admis = les_employees.filter(emp =>
