@@ -320,21 +320,21 @@ const zonesmax = {
     min: 0,
     max: 2,
   },
-  salleserveurs: { min: 0, max: 1 },
-  securite: { min: 0, max: 3 },
-  archives: { min: 0, max: 1 },
+  salleserveurs: { min: 0, max: 4 },
+  securite: { min: 0, max: 2 },
+  archives: { min: 0, max: 2 },
   conference: { min: 0, max: 12 },
   personnel: { min: 0, max: 5 },
 };
 
-const compt_zones = {
-  reception: 0,
-  salleserveurs: 0,
-  securite: 0,
-  archives: 0,
-  conference: 0,
-  personnel: 0,
-};
+const compt_zones = [
+  (reception = 0),
+  (salleserveurs = 0),
+  (securite = 0),
+  (archives = 0),
+  (conference = 0),
+  (personnel = 0),
+];
 
 function assignfx(id, zone) {
   if (compt_zones[zone] >= zonesmax[zone].max) {
@@ -355,6 +355,11 @@ function assignfx(id, zone) {
     }
   }
 }
+console.log(compt_zones.reception);
+console.log(compt_zones.personnel);
+console.log(compt_zones.securite);
+console.log(compt_zones.conference);
+
 document
   .getElementById("vue_conference")
   .addEventListener("click", () => afficherAssignes("conference"));
@@ -386,23 +391,42 @@ function afficherAssignes(zone) {
   const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
 
   if (assignes.length === 0) {
-    container.innerHTML = `<li class="list-group-item">Aucun employé assigné</li>`;
+    container.innerHTML = `<li class="text-warning list-group-item">Aucun employé assigné</li>`;
     return;
   }
 
-  for (let i = 0; i < assignes.length; i++) {
+  assignes.forEach((emp) => {
     const li = document.createElement("li");
     li.className =
       "mt-2 bg-light list-group-item d-flex justify-content-between align-items-center gap-2 p-2";
 
     li.innerHTML = `
-            <img class="rounded-4" src="${assignes[i]}" width="50" height="50">
-            <div class="d-flex flex-column flex-grow-1 mx-2">
-                <div class="fw-bold">${assignes[i].nom}</div>
-                <div class="text-secondary">${assignes[i].role}</div>
-            </div>
-        `;
+      <div class="d-flex align-items-center w-100">
+  <img class="rounded-4" src="${emp.photo}" width="50" height="50">
+  <div class="d-flex flex-column flex-grow-1 mx-2">
+    <div class="fw-bold">${emp.nom}</div>
+    <div class="text-secondary">${emp.role}</div>
+  </div>
+  <button class="suppremerass btn btn-danger btn-sm ms-2">
+    <i class="bi bi-x-octagon"></i>
+  </button>
+   <button class="suppremerass btn btn-danger btn-sm ms-2">
+    <i class="bi bi-x-octagon"></i>
+  </button>
+</div>
+
+    `;
+
+    li.querySelector(".suppremerass").addEventListener("click", () => {
+      emp.assignedTo = null;
+      sauvegarde_local();
+      afficherAssignes(zone);
+      afficher_non_assigne();
+    });
 
     container.appendChild(li);
-  }
+  });
 }
+// function verifierzone(){
+//  let tabb =
+// }

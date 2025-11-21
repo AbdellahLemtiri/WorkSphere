@@ -11,6 +11,20 @@
 body {
     width: 100%;
 }
+#admis {
+    position: absolute;
+    top: px;            
+    left: 50%;            
+    transform: translateX(-50%);
+    z-index: 1000;        
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
 
 .my-font {
     font-family: Arial, Helvetica, sans-serif;
@@ -184,18 +198,25 @@ small{
     font-size:smaller;
 }
 @media (max-width: 518px) {
-    .plan {
+    .container-plan{
         transform: rotate(90deg);
         min-width: 100%;
         min-height: 100%;
        
      
     }
-     
+      .container-fluid{
+        display: flex;
+        flex-direction: row-reverse;
+    } 
   
 }
 @media (max-width: 768px) {
-    .plan {
+    .container-fluid{
+        display: flex;
+        flex-direction: row-reverse;
+    } 
+    .container-plan {
   
     transform: rotate(90deg);
     min-width: 100%;
