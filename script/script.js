@@ -97,15 +97,16 @@ ajout_exeprience.addEventListener("click", () => {
         </div>
         <div class="col-6">
             <label class="form-label">Date start</label>
-            <input type="date" class="form-control" name="dateStart">
+            <input type="date" class="datestart form-control" name="dateStart">
         </div>
         <div class="col-6">
             <label class="form-label">Date fin</label>
             <input type="date" class="form-control" name="dateEnd">
         </div>
+        <p class = "infodate text-warning "></p>
        
     `;
-
+    
   experiences.appendChild(exp);
 });
 
@@ -157,7 +158,7 @@ sauvegarder.addEventListener("click", () => {
     erreur = true;
   }
 
-  console.log("1" + erreur);
+  console.log("161" + erreur);
   // if (!datestart.value || !datefin.value) {
   //     erreur = true;
   //     infodate.textContent = "veuillez entre des dates valide !";
@@ -209,6 +210,8 @@ sauvegarder.addEventListener("click", () => {
             dateEnd: date_fin,
           });
         }
+        console.log(une_exp);
+        
       });
 
     employe.experiences = toutes_les_experiences;
@@ -359,10 +362,13 @@ btn_personnel.addEventListener("click", () => {
 btn_Reception.addEventListener("click", () => {
   const les_admis = les_employees.filter(
     (emp) => emp.assignedTo === null && est_admis(emp.role, "reception")
+    
   );
   afficheradmis(les_admis, "reception");
 });
-
+document.getElementById('mobileMenuBtn').onclick = function() {
+    document.querySelector('aside').classList.toggle('d-none');
+};
 btn_serveurs.addEventListener("click", () => {
   const les_admis = les_employees.filter(
     (emp) => emp.assignedTo === null && est_admis(emp.role, "serveurs")

@@ -77,8 +77,10 @@ body {
 }
 
 .list-group {
+
   max-height: 77vh;
   overflow-y: auto;
+
 }
 
 #list_employee_non_assignes img {
@@ -86,6 +88,7 @@ body {
 }
 
 .btn-pr {
+
   background: var(--primary);
   color: var(--btn-text);
   padding: 10px 18px;
@@ -94,6 +97,7 @@ body {
   cursor: pointer;
   font-weight: 600;
   transition: 0.3s ease;
+
 }
 
 #profile_zone {
@@ -101,8 +105,10 @@ body {
 }
 
 .bg-light2 {
+
   border: 0.1px solid #e0e0e0;
   background-color: #f6f8f9;
+
 }
 
 .btn-pr:active {
@@ -227,44 +233,10 @@ small {
   background-color: #e7658c;
 }
 
-@media (max-width: 991px) {
+ @media (max-width: 991px) {
   .container_main{
     min-height: 100vh;
     min-width: 100vw;
     overflow: hidden;
-  }
-
-  .row_main {
-    transform: rotate(90deg);
-    transform-origin: top left;
-    position: absolute;
-    left: 100%;
-    top: 0;
-    width: 100vh;
-    height: 100vw;
-  }
-
-  .row.g-0.min-vh-100 .col-lg-3 {
-    width: 30% !important;
-    height: 100% !important;
-  }
-
-  .row.g-0.min-vh-100 .col-lg-9 {
-    width: 70% !important;
-    height: 100% !important;
-  }
-
-  #formulaire {
-    transform: rotate(90deg);
-    right: 50%;
-    min-width: 400px !important;
-    max-width: 90vh;
-    z-index: 10000;
-  }
-  #profile_zone_sss {
-    transform: translate(-50%, -50%) rotate(90deg);
-    width: 90vh !important;
-    max-width: 90vh !important;
-    max-height: 90vw !important;
   }
 }
