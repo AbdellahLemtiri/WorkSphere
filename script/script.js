@@ -17,9 +17,9 @@ const infotele = document.getElementById("infotele");
 const infomail = document.getElementById("infomail");
 const infonom = document.getElementById("infonom");
 // const infodate = document.getElementById('infodate');
-const cont_admis=document.getElementById('cont_admis');
-const close_admis= document.getElementById('close_admis')
-const admis = document.getElementById('admis');
+const cont_admis = document.getElementById("cont_admis");
+const close_admis = document.getElementById("close_admis");
+const admis = document.getElementById("admis");
 const profile = document.getElementById("profile_zone");
 const zoneConference = document.querySelector(".conference");
 const zoneReception = document.querySelector(".reception");
@@ -180,7 +180,9 @@ sauvegarder.addEventListener("click", () => {
       role: role.value,
       email: mail.value,
       phone: phone.value,
-      photo: urlimg.value || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg",
+      photo:
+        urlimg.value ||
+        "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg",
       experiences: [],
       assignedTo: null,
     };
@@ -188,11 +190,16 @@ sauvegarder.addEventListener("click", () => {
     const toutes_les_experiences = [];
 
     document
-      .querySelectorAll("#experiences .experience-item").forEach((une_exp) => {
-         const poste = une_exp.querySelector('input[name="expPoste"]')?.value || "";
-        const entreprise =une_exp.querySelector('input[name="expEntreprise"]')?.value || "";
-        const date_start = une_exp.querySelector('input[name="dateStart"]')?.value || "";
-        const date_fin = une_exp.querySelector('input[name="dateEnd"]')?.value || "";
+      .querySelectorAll("#experiences .experience-item")
+      .forEach((une_exp) => {
+        const poste =
+          une_exp.querySelector('input[name="expPoste"]')?.value || "";
+        const entreprise =
+          une_exp.querySelector('input[name="expEntreprise"]')?.value || "";
+        const date_start =
+          une_exp.querySelector('input[name="dateStart"]')?.value || "";
+        const date_fin =
+          une_exp.querySelector('input[name="dateEnd"]')?.value || "";
 
         if (poste || entreprise || date_start || date_fin) {
           toutes_les_experiences.push({
@@ -241,13 +248,13 @@ calcule_zone();
 function afficheradmis(liste, zone) {
   verifier_zon();
   calcule_zone();
-  if(liste.length === 0){
-  cont_admis.classList.remove('d-none')
-   admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe est admis a cette zone</li>`; 
-        return;
+  if (liste.length === 0) {
+    cont_admis.classList.remove("d-none");
+    admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe est admis a cette zone</li>`;
+    return;
   }
   admis.innerHTML = "";
-  cont_admis.classList.remove('d-none')
+  cont_admis.classList.remove("d-none");
   liste.forEach((emp) => {
     const li = document.createElement("li");
     li.className =
@@ -283,8 +290,7 @@ function afficher_non_assigne() {
     if (
       les_employees[i].assignedTo == null ||
       les_employees[i].assignedTo == ""
-    ) 
-    {
+    ) {
       const li = document.createElement("li");
 
       li.className =
@@ -294,7 +300,8 @@ function afficher_non_assigne() {
       <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center gap-3 flex-grow-1">
                 <img src="${
-                  les_employees[i].photo || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
+                  les_employees[i].photo ||
+                  "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
                 }" 
                      class=" rounded-4 object-fit-cover" 
                      width="50" height="50" alt="${les_employees[i].nom}">
@@ -343,7 +350,9 @@ function est_admis(role, zone) {
 }
 
 btn_personnel.addEventListener("click", () => {
-  const les_admis = les_employees.filter((emp) => emp.assignedTo === null && est_admis(emp.role, "personnel"));
+  const les_admis = les_employees.filter(
+    (emp) => emp.assignedTo === null && est_admis(emp.role, "personnel")
+  );
   afficheradmis(les_admis, "personnel");
 });
 
@@ -393,7 +402,7 @@ function assignfx(id, zone) {
     if (emp.id === id && !emp.assignedTo) {
       emp.assignedTo = zone;
       sauvegarde_local();
-      calcule_zone()
+      calcule_zone();
       document.getElementById("admis").innerHTML = "";
       afficher_non_assigne();
       verifier_zon();
@@ -407,47 +416,48 @@ function assignfx(id, zone) {
 
 document
   .getElementById("vue_conference")
-  .addEventListener("click", () =>afficherAssignes("conference"));
+  .addEventListener("click", () => afficherAssignes("conference"));
 document
   .getElementById("vue_Reception")
-  .addEventListener("click", () =>afficherAssignes("reception"));
+  .addEventListener("click", () => afficherAssignes("reception"));
 document
   .getElementById("vue_serveurs")
-  .addEventListener("click", () =>afficherAssignes("serveurs"));
+  .addEventListener("click", () => afficherAssignes("serveurs"));
 document
   .getElementById("vue_securite")
-  .addEventListener("click", () =>afficherAssignes("securite"));
+  .addEventListener("click", () => afficherAssignes("securite"));
 document
   .getElementById("vue_personnel")
-  .addEventListener("click", () =>afficherAssignes("personnel"));
+  .addEventListener("click", () => afficherAssignes("personnel"));
 document
   .getElementById("vue_darchives")
-  .addEventListener("click", () =>afficherAssignes("archives"));
-close_admis.addEventListener('click',() => {
-cont_admis.classList.add('d-none')
-})
+  .addEventListener("click", () => afficherAssignes("archives"));
+close_admis.addEventListener("click", () => {
+  cont_admis.classList.add("d-none");
+});
 function afficherAssignes(zone) {
-    calcule_zone(); 
-    verifier_zon();
-    cont_admis.classList.remove('d-none');
-    admis.innerHTML = "";
+  calcule_zone();
+  verifier_zon();
+  cont_admis.classList.remove("d-none");
+  admis.innerHTML = "";
 
-    const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
+  const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
 
-    if (assignes.length === 0) {
-        admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe assigne</li>`; 
-        return;
-    }
+  if (assignes.length === 0) {
+    admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe assigne</li>`;
+    return;
+  }
 
-    assignes.forEach((emp) => { 
-        const li = document.createElement("li");
-        li.className = "card_ass p-2 mt-2 bg-light list-group-item"; 
+  assignes.forEach((emp) => {
+    const li = document.createElement("li");
+    li.className = "card_ass p-2 mt-2 bg-light list-group-item";
 
-        li.innerHTML = `
+    li.innerHTML = `
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex align-items-center gap-3 flex-grow-1">
                     <img src="${
-                        emp.photo || "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
+                      emp.photo ||
+                      "https://st3.depositphotos.com/2546551/18320/v/600/depositphotos_183201822-stock-illustration-male-profile-picture.jpg"
                     }" 
                         class=" rounded-4 object-fit-cover" 
                         width="50" height="50" alt="${emp.nom}">
@@ -462,18 +472,19 @@ function afficherAssignes(zone) {
             </div>
         `;
 
-        li.querySelector(".suppremerass").addEventListener("click", () => {
-            emp.assignedTo = null; 
-            sauvegarde_local();
-            calcule_zone();
-            afficher_non_assigne();
-            verifier_zon();
-            afficherAssignes(zone);
-        });
-        
-        admis.appendChild(li);
+    li.querySelector(".suppremerass").addEventListener("click", () => {
+      emp.assignedTo = null;
+      sauvegarde_local();
+      calcule_zone();
+      afficher_non_assigne();
+      verifier_zon();
+      afficherAssignes(zone);
     });
-}function verifier_zon() {
+
+    admis.appendChild(li);
+  });
+}
+function verifier_zon() {
   const nbReception = les_employees.filter(
     (e) => e.assignedTo === "reception"
   ).length;
@@ -526,7 +537,9 @@ function affichier_ProfileCard(i) {
   card.innerHTML = `
   <div class="card shadow-sm p-3">
     <div class="text-center">
-        <img src="${emp.photo}" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
+        <img src="${
+          emp.photo
+        }" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
     </div>
 
     <div class="card-body text-center">
@@ -537,7 +550,9 @@ function affichier_ProfileCard(i) {
         <p class="mb-1"><strong>ID:</strong> ${emp.id}</p>
         <p class="mb-1"><strong>Email:</strong> ${emp.email}</p>
         <p class="mb-1"><strong>Téléphone:</strong> ${emp.phone}</p>
-        <p class="mb-3"><strong>Affectation:</strong> ${emp.assignedTo || "Aucune"}</p>
+        <p class="mb-3"><strong>Affectation:</strong> ${
+          emp.assignedTo || "Aucune"
+        }</p>
 
         <h6 class="mt-3">Expériences</h6>
         <div class="exp_list text-start"></div>
