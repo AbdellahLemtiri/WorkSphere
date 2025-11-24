@@ -13,7 +13,7 @@
 <body>
     <div class=" container-fluid p-0 position-relative container_main">
         <div class="row g-0 min-vh-100 row_main">
-            <button id="mobileMenuBtn" class="btn-tow mb-3  d-lg-none position-fixed" style="top:10px; left:10px; z-index:1000">
+            <button id="mobileMenuBtn" class="btn-tow mb-3  d-lg-none position-fixed" >
     <i class="bi bi-list"></i>
           </button>
             <aside class="col-lg-3 bg-light2   d-none d-lg-block">
@@ -100,10 +100,8 @@
                 </div>
             </div>
         </div>
-        <section id="formulaire"
-            class="formulaire position-fixed top-0 p-2 mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3">
-            <form class="w-100 ">
-
+        <section id="formulaire" class="formulaire position-fixed top-0 p-2 mt-2 start-0 bg-white shadow pt-4 pb-4 rounded-4 d-none col-3 ">
+            <form class="form_f w-100 ">
                 <div class="d-flex justify-content-between align-items-center mb-3 ">
                     <img id="img_employe" src="" alt="">
                     <h5 class="fw-bold m-0">Nouvel employé</h5>
@@ -188,15 +186,17 @@
 
             </form>
         </section>
-        <div id="profile_zone_sss" class="d-none position-fixed w-100 h-100"
-            style="background: rgba(0,0,0,0.7); z-index: 9999;">
+        <div id="profile_zone_sss" class="d-none  position-fixed w-100 h-100">
             <div class="position-absolute top-50 start-50 translate-middle bg-white rounded-4 shadow-lg p-4"
                 style="width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto;">
 
                 <div class="d-flex justify-content-end mb-3">
                     <button type="button" class="btn-close" id="close_profile_modal"></button>
                 </div>
+                <div class="d-flex justify-content-center">
                 <div id="profile_zone" class="text-center"></div>
+
+                </div>
             </div>
         </div>
     </div>

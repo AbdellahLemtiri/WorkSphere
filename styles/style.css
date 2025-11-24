@@ -99,7 +99,14 @@ body {
   transition: 0.3s ease;
 
 }
+#profile_zone_sss{
+      background: rgba(0,0,0,0.7);
+       z-index: 9999;
+}
 
+#mobileMenuBtn{
+    top:1px; left:10px; z-index:1000;
+}
 #profile_zone {
   z-index: 99999;
 }
@@ -168,6 +175,7 @@ body {
 .formulaire {
   max-height: 97vh;
   margin-left: 12px;
+
 }
 
 .body_form {
@@ -238,5 +246,11 @@ small {
     min-height: 100vh;
     min-width: 100vw;
     overflow: hidden;
+  }
+  .formulaire{
+    min-width: 40%;
+     max-height: 80vh;
+  margin-left: 12px;
+  
   }
 }

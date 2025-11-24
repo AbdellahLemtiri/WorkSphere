@@ -545,15 +545,13 @@ function affichier_ProfileCard(i) {
     <div class="text-center">
         <img src="${
           emp.photo
-        }" class="rounded-circle" width="100" height="100" style="object-fit: cover;">
+        }" class="rounded-5" width="100" height="100" style="object-fit: cover;">
     </div>
 
     <div class="card-body text-center">
         <h5 class="card-title mb-1">${emp.nom}</h5>
         <p class="text-muted mb-2">${emp.role}</p>
         <hr>
-
-        <p class="mb-1"><strong>ID:</strong> ${emp.id}</p>
         <p class="mb-1"><strong>Email:</strong> ${emp.email}</p>
         <p class="mb-1"><strong>Téléphone:</strong> ${emp.phone}</p>
         <p class="mb-3"><strong>Affectation:</strong> ${
@@ -568,7 +566,7 @@ function affichier_ProfileCard(i) {
     `;
   const expList = card.querySelector(".exp_list");
   if (emp.experiences.length === 0) {
-    expList.innerHTML = `<p style="color:gray;">Aucune expérience</p>`;
+    expList.innerHTML = `<p style="color:gray;">Aucune experience</p>`;
   } else {
     emp.experiences.forEach((exp) => {
       expList.innerHTML += `
