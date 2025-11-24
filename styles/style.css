@@ -248,9 +248,18 @@ small {
     overflow: hidden;
   }
   .formulaire{
-    min-width: 40%;
-     max-height: 80vh;
+    min-width: 60% !important;
+    
   margin-left: 12px;
-  
+  max-height: 78%;
   }
+  .form_f{
+      max-height: 70% !important;
+  }
+  #formulaire .body_form {
+  max-height: 67vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
 }
