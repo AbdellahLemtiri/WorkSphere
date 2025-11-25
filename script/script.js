@@ -255,7 +255,7 @@ function afficheradmis(liste, zone) {
   admis.innerHTML = "";
   cont_admis.classList.remove("d-none");
   liste.forEach((emp) => {
-    const li = document.createElement("li");
+    const li = document.createElement("div");
     li.className =
       "mt-2 bg-light  d-flex justify-content-between align-items-center gap-2 p-2";
 
