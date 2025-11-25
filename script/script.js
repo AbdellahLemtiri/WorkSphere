@@ -114,11 +114,7 @@ document.getElementById("close_profile_modal").addEventListener("click", () => {
   document.getElementById("profile_zone_sss").classList.add("d-none");
 });
 
-document.getElementById("profile_zone_sss").addEventListener("click", (e) => {
-  if (e.target === document.getElementById("profile_zone_sss")) {
-    document.getElementById("profile_zone_sss").classList.add("d-none");
-  }
-});
+
 btnajout.addEventListener("click", () => {
   formulaire.classList.remove("d-none");
   rest_formulaire();
@@ -319,7 +315,7 @@ function afficher_non_assigne() {
     `;
       list_employee_non_assignes.appendChild(li);
       li.addEventListener("click", () => {
-        console.log("heloo ba abdellah");
+        console.log("heloo 322 abdellah");
         document.getElementById("profile_zone_sss").classList.remove("d-none");
         affichier_ProfileCard(i);
       });
