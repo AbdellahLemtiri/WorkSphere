@@ -249,7 +249,7 @@ function afficheradmis(liste, zone) {
   calcule_zone();
   if (liste.length === 0) {
     cont_admis.classList.remove("d-none");
-    admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe est admis a cette zone</li>`;
+    admis.innerHTML = `<div class="text-warning list-group-item">Aucun employe est admis a cette zone</div>`;
     return;
   }
   admis.innerHTML = "";
@@ -290,7 +290,7 @@ function afficher_non_assigne() {
       les_employees[i].assignedTo == null ||
       les_employees[i].assignedTo == ""
     ) {
-      const li = document.createElement("li");
+      const li = document.createElement("div");
 
       li.className =
         "mt-2 bg-light d-flex justify-content-between align-items-center gap-2 p-2";
@@ -446,12 +446,12 @@ function afficherAssignes(zone) {
   const assignes = les_employees.filter((emp) => emp.assignedTo === zone);
 
   if (assignes.length === 0) {
-    admis.innerHTML = `<li class="text-warning list-group-item">Aucun employe assigne</li>`;
+    admis.innerHTML = `<div class="text-warning list-group-item">Aucun employe assigne</div>`;
     return;
   }
 
   assignes.forEach((emp) => {
-    const li = document.createElement("li");
+    const li = document.createElement("div");
     li.className = "card_ass p-2 mt-2 bg-light list-group-item";
 
     li.innerHTML = `
