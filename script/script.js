@@ -73,16 +73,7 @@ function rest_formulaire() {
   phone.value = "";
   role.value = "Choisir";
 }
-let id_emp = max_id + 1;
-datestart.addEventListener("change", () => {
-  const start = new Date(datestart.value);
-  const end = new Date(datefin.value);
-  const diff = end - start;
-  console.log(diff);
-  const jours = diff / (1000 * 60 * 60 * 24);
-  console.log(jours);
-});
-
+let id_emp = max_id + 2;
 ajout_exeprience.addEventListener("click", () => {
   const exp = document.createElement("div");
   exp.className = "row mb-2 experience-item";
@@ -155,20 +146,6 @@ sauvegarder.addEventListener("click", () => {
   }
 
   console.log("161" + erreur);
-  // if (!datestart.value || !datefin.value) {
-  //     erreur = true;
-  //     infodate.textContent = "veuillez entre des dates valide !";
-
-  // }
-  // else {
-  //     const start = new Date(datestart.value);
-  //     const end = new Date(datefin.value);
-
-  //     if (end <= start) {
-  //         erreur = true;
-  //         infodate.textContent = "veuillez entre des dates valide !";
-  //     }
-  // }
 
   if (!erreur) {
     const employe = {
@@ -341,10 +318,11 @@ function est_admis(role, zone) {
     return true;
   }
   if (role === "Autre") {
-    if (zone != "reception" || zone != "serveurs" || zone != "securite") {
+    if (zone != "reception" && zone != "serveurs" && zone != "securite") {
       return true;
     }
   }
+
   return false;
 }
 
